@@ -51,6 +51,11 @@ export default function Layout({ children, currentPageName }) {
           </nav>
 
           <div className="flex items-center gap-2">
+            {ADMIN_PAGES.includes(currentPageName) && (
+              <Link to={createPageUrl("AdminPipeline")} className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-gray-900 hover:bg-gray-700 text-white text-sm font-bold rounded-xl transition-colors">
+                ⚡ Pipeline
+              </Link>
+            )}
             <Link to={createPageUrl("Blog")} className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl transition-colors">
               <Search className="w-4 h-4" /> Search Deals
             </Link>
