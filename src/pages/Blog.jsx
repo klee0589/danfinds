@@ -125,7 +125,7 @@ export default function Blog() {
                 {popularPosts.map((post, i) => (
                   <li key={post.id} className="flex gap-3 group">
                     <span className="text-2xl font-extrabold text-gray-100 flex-shrink-0 leading-none">{i + 1}</span>
-                    <a href={`/blog-post?slug=${post.slug}`} className="text-sm text-gray-700 group-hover:text-amber-600 transition-colors font-medium leading-snug">{post.title}</a>
+                    <a href={createPageUrl(`BlogPost?slug=${post.slug}`)} className="text-sm text-gray-700 group-hover:text-amber-600 transition-colors font-medium leading-snug">{post.title}</a>
                   </li>
                 ))}
               </ul>
