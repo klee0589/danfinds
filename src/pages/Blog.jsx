@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Search, X } from "lucide-react";
+import { createPageUrl } from "@/utils";
 import PostCard from "../components/blog/PostCard";
 import NewsletterBox from "../components/blog/NewsletterBox";
 import { SAMPLE_POSTS, CATEGORIES } from "../components/blog/blogData";
