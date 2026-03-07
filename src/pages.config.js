@@ -58,6 +58,8 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import AdminPipeline from './pages/AdminPipeline';
 import AdminTrends from './pages/AdminTrends';
 import AdminProducts from './pages/AdminProducts';
+import AdminGenerate from './pages/AdminGenerate';
+import AdminQueue from './pages/AdminQueue';
 import __Layout from './Layout.jsx';
 
 
@@ -73,6 +75,8 @@ export const PAGES = {
     "AdminPipeline": AdminPipeline,
     "AdminTrends": AdminTrends,
     "AdminProducts": AdminProducts,
+    "AdminGenerate": AdminGenerate,
+    "AdminQueue": AdminQueue,
 }
 
 export const pagesConfig = {
