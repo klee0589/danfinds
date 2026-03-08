@@ -27,6 +27,7 @@ const NAV_LINKS = [
 const ADMIN_PAGES = ["AdminPipeline","AdminTrends","AdminProducts","AdminGenerate","AdminQueue"];
 
 export default function Layout({ children, currentPageName }) {
+  useAdSense();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
