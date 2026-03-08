@@ -93,7 +93,7 @@ export const SAMPLE_POSTS = [
       },
       {
         name: "BLAVOR Solar Power Bank 10,000mAh",
-        image: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=80",
+        image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07FDXDB3W&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1",
         summary: "The #1 best-selling solar charger — 20W fast charging, wireless charging, dual flashlights, and IPX5 waterproof for any adventure.",
         price_range: "$26.99",
         rating: 4.2,
