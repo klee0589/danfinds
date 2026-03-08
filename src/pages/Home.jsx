@@ -17,7 +17,7 @@ const CATEGORY_ICONS = {
 };
 
 export default function Home() {
-  const featuredPosts = SAMPLE_POSTS.filter(p => p.is_featured).slice(0, 3);
+  const featuredPosts = SAMPLE_POSTS.filter((p) => p.is_featured).slice(0, 3);
   const latestPosts = SAMPLE_POSTS.slice(0, 6);
   const popularPosts = [...SAMPLE_POSTS].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 4);
 
@@ -39,9 +39,9 @@ export default function Home() {
             <Link to={createPageUrl("Blog")} className="px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2">
               Browse All Reviews <ArrowRight className="w-5 h-5" />
             </Link>
-            <Link to={createPageUrl("Newsletter")} className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-colors border border-white/20">
-              Get Weekly Deals
-            </Link>
+            
+
+
           </div>
           <div className="flex justify-center gap-8 mt-10 text-sm text-gray-400">
             <div className="text-center"><div className="text-2xl font-bold text-white">25+</div>Reviews Published</div>
@@ -55,16 +55,16 @@ export default function Home() {
       <section className="bg-gray-50 py-10 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-hide">
-            {CATEGORIES.map(cat => (
-              <Link
-                key={cat}
-                to={createPageUrl(`Categories?cat=${encodeURIComponent(cat)}`)}
-                className="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:border-amber-400 hover:text-amber-600 transition-colors shadow-sm"
-              >
+            {CATEGORIES.map((cat) =>
+            <Link
+              key={cat}
+              to={createPageUrl(`Categories?cat=${encodeURIComponent(cat)}`)}
+              className="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:border-amber-400 hover:text-amber-600 transition-colors shadow-sm">
+
                 <span>{CATEGORY_ICONS[cat]}</span>
                 {cat}
               </Link>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -82,9 +82,9 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredPosts.map(post => (
-              <PostCard key={post.id} post={post} featured={false} />
-            ))}
+            {featuredPosts.map((post) =>
+            <PostCard key={post.id} post={post} featured={false} />
+            )}
           </div>
         </div>
       </section>
@@ -109,9 +109,9 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestPosts.map(post => (
-              <PostCard key={post.id} post={post} />
-            ))}
+            {latestPosts.map((post) =>
+            <PostCard key={post.id} post={post} />
+            )}
           </div>
         </div>
       </section>
@@ -123,8 +123,8 @@ export default function Home() {
             <TrendingUp className="w-7 h-7 text-amber-500" /> Most Popular
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {popularPosts.map((post, i) => (
-              <Link key={post.id} to={createPageUrl(`BlogPost?slug=${post.slug}`)} className="flex gap-4 bg-white border border-gray-100 rounded-xl p-4 hover:shadow-md transition-shadow group">
+            {popularPosts.map((post, i) =>
+            <Link key={post.id} to={createPageUrl(`BlogPost?slug=${post.slug}`)} className="flex gap-4 bg-white border border-gray-100 rounded-xl p-4 hover:shadow-md transition-shadow group">
                 <span className="text-4xl font-extrabold text-gray-100 flex-shrink-0 leading-none">{String(i + 1).padStart(2, "0")}</span>
                 <div>
                   <span className="text-xs font-bold text-amber-600">{post.category}</span>
@@ -135,7 +135,7 @@ export default function Home() {
                   </div>
                 </div>
               </Link>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -147,19 +147,19 @@ export default function Home() {
           <p className="text-gray-400 mb-8">Every product is independently researched and tested. We never recommend anything we wouldn't buy ourselves.</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
-              { icon: "🔍", title: "Independently Researched", desc: "Hours of testing and research behind every review" },
-              { icon: "💯", title: "Honest Opinions", desc: "We highlight the good AND the bad of every product" },
-              { icon: "🔄", title: "Regularly Updated", desc: "Reviews updated as products and prices change" }
-            ].map((item, i) => (
-              <div key={i} className="bg-gray-800 rounded-xl p-5">
+            { icon: "🔍", title: "Independently Researched", desc: "Hours of testing and research behind every review" },
+            { icon: "💯", title: "Honest Opinions", desc: "We highlight the good AND the bad of every product" },
+            { icon: "🔄", title: "Regularly Updated", desc: "Reviews updated as products and prices change" }].
+            map((item, i) =>
+            <div key={i} className="bg-gray-800 rounded-xl p-5">
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-bold mb-1">{item.title}</h3>
                 <p className="text-gray-400 text-sm">{item.desc}</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>);
+
 }
