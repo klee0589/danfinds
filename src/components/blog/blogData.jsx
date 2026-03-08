@@ -10,8 +10,7 @@ export const CATEGORIES = [
 ];
 
 export const SAMPLE_POSTS = [
-  {
-    id: "1",
+
     title: "Best Punching Bags for Apartments (2024): No Noise, No Damage",
     slug: "best-punching-bags-for-apartments",
     category: "Fitness Gear",
