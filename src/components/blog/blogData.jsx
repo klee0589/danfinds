@@ -16,7 +16,7 @@ export const SAMPLE_POSTS = [
     slug: "best-summer-outdoor-finds-amazon-2025",
     category: "Amazon Finds",
     excerpt: "From beach tents to solar chargers, these 6 Amazon picks are the ultimate summer outdoor essentials — all under $40 and all Dan-approved.",
-    featured_image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=80",
+    featured_image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0BR7LD3R1&Format=_SL500_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1",
     author: "Dan",
     author_bio: "Dan is an Amazon deal hunter who tests and reviews outdoor gear, home finds, and everyday essentials so you don't have to.",
     author_avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
