@@ -6,6 +6,13 @@ import { useState, useEffect } from "react";
 // Inject AdSense script once
 function useAdSense() {
   useEffect(() => {
+    // Add meta tag for AdSense verification
+    if (!document.querySelector('meta[name="google-adsense-account"]')) {
+      const meta = document.createElement('meta');
+      meta.name = 'google-adsense-account';
+      meta.content = 'ca-pub-9420381871665480';
+      document.head.appendChild(meta);
+    }
     if (document.querySelector('script[data-adsense]')) return;
     const script = document.createElement('script');
     script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9420381871665480';
