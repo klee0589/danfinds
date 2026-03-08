@@ -81,7 +81,7 @@ export const SAMPLE_POSTS = [
       },
       {
         name: "LifeStraw Personal Water Purifier",
-        image: "https://images.unsplash.com/photo-1524673450801-b5aa9b621b76?w=400&q=80",
+        image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B006QF3TW4&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1",
         summary: "The gold standard in personal water filtration — removes 99.999999% of bacteria and parasites from any water source.",
         price_range: "$17.47",
         rating: 4.8,
