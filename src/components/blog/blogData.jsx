@@ -33,7 +33,7 @@ export const SAMPLE_POSTS = [
     products: [
       {
         name: "LetsFunny Large Easy Setup Beach Tent (Mint Green)",
-        image: "https://images.unsplash.com/photo-1510672981848-a1c4f1cb5ccf?w=400&q=80",
+        image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0BR7LD3R1&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1",
         summary: "A spacious UPF 50+ beach tent with 3 mesh windows and an extended floor — fits 3-4 people and sets up in minutes.",
         price_range: "$29.99",
         rating: 4.4,
