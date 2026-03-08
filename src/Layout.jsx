@@ -1,7 +1,20 @@
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Search, Menu, X, ShoppingBag } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// Inject AdSense script once
+function useAdSense() {
+  useEffect(() => {
+    if (document.querySelector('script[data-adsense]')) return;
+    const script = document.createElement('script');
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9420381871665480';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.setAttribute('data-adsense', 'true');
+    document.head.appendChild(script);
+  }, []);
+}
 
 const NAV_LINKS = [
   { label: "Home", page: "Home" },
