@@ -151,29 +151,31 @@ Return complete blog post JSON.`,
         }
       });
 
-      // --- Generate real images via AI (Amazon CDN blocks hotlinking) ---
-      async function generateImg(prompt) {
+      // --- Fetch and re-host Amazon product images ---
+      async function reHostImage(imageUrl) {
+        if (!imageUrl) return null;
         try {
-          const res = await base44.asServiceRole.integrations.Core.GenerateImage({ prompt });
-          return res.url || null;
+          const imgRes = await fetch(imageUrl);
+          if (!imgRes.ok) return null;
+          const blob = await imgRes.blob();
+          const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+          return uploaded.file_url || null;
         } catch { return null; }
       }
 
-      // Generate product images
+      // Re-host product images
       if (result.products?.length) {
         for (const product of result.products) {
-          const imgUrl = await generateImg(
-            `Professional Amazon-style product photo of: ${product.name}. Clean white background, high quality.`
-          );
-          if (imgUrl) product.image = imgUrl;
+          if (product.image) {
+            product.image = await reHostImage(product.image) || '';
+          }
         }
       }
 
-      // Generate featured image
-      const featuredImgUrl = await generateImg(
-        `Professional product photo for a blog post about: ${topic.keyword}. Clean white background, high quality.`
-      );
-      if (featuredImgUrl) result.featured_image = featuredImgUrl;
+      // Re-host featured image
+      if (result.featured_image) {
+        result.featured_image = await reHostImage(result.featured_image) || '';
+      }
 
       // Ensure unique slug
       let slug = result.slug ||
