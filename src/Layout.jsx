@@ -37,12 +37,13 @@ const ADMIN_PAGES = ["AdminPipeline","AdminTrends","AdminProducts","AdminGenerat
 export default function Layout({ children, currentPageName }) {
   useAdSense();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isSubPage = ["BlogPost", "Categories", "About", "Contact"].includes(currentPageName);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col font-sans">
+    <div className="min-h-screen bg-background dark:bg-gray-900 flex flex-col font-sans">
       <style>{`
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; overscroll-behavior-y: none; }
       `}</style>
 
       {/* Top Bar */}
