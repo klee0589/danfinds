@@ -89,10 +89,10 @@ export default function BlogPost() {
           )}
         </div>
 
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">{post.title}</h1>
+        <h1 className="text-3xl md:text-4xl font-extrabold text-foreground dark:text-white mb-4 leading-tight">{post.title}</h1>
 
         {post.excerpt && (
-          <p className="text-lg text-gray-600 mb-6 leading-relaxed border-l-4 border-amber-400 pl-4">
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed border-l-4 border-amber-400 pl-4">
             {post.excerpt}
           </p>
         )}
