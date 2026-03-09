@@ -7,6 +7,8 @@ export default function AdminFixImages() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState({});
+  const [bulkRunning, setBulkRunning] = useState(false);
+  const [bulkResult, setBulkResult] = useState(null);
 
   useEffect(() => {
     base44.entities.BlogPost.list("-created_date", 100).then(setPosts).finally(() => setLoading(false));
