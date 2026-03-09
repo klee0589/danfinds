@@ -59,8 +59,8 @@ export default function BlogPost() {
     <div className="min-h-screen bg-white">
       {/* Hero Image */}
       <div className="w-full h-64 md:h-96 overflow-hidden bg-gray-100 flex items-center justify-center">
-        {(post.featured_image || post.products?.[0]?.image)
-          ? <img src={post.featured_image || post.products[0].image} alt={post.title} className="w-full h-full object-cover" />
+        {post.products?.[0]?.image
+          ? <img src={post.products[0].image} alt={post.title} className="w-full h-full object-cover" />
           : <ShoppingBag className="w-20 h-20 text-gray-300" />
         }
       </div>
