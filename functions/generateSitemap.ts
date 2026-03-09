@@ -11,9 +11,8 @@ Deno.serve(async (req) => {
     // Fetch all published blog posts
     const posts = await base44.asServiceRole.entities.BlogPost.list('-updated_date', 500);
 
-    // Get the app base URL from request
-    const url = new URL(req.url);
-    const baseUrl = `${url.protocol}//${url.host}`;
+    // Use custom domain
+    const baseUrl = 'https://danfinds.online';
 
     // Build sitemap XML
     const sitemapEntries = posts
