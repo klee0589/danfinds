@@ -80,14 +80,14 @@ export default function Layout({ children, currentPageName }) {
 
           <div className="flex items-center gap-2">
             {ADMIN_PAGES.includes(currentPageName) && (
-              <Link to={createPageUrl("AdminPipeline")} className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-gray-900 hover:bg-gray-700 text-white text-sm font-bold rounded-xl transition-colors">
+              <Link to={createPageUrl("AdminPipeline")} className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-gray-900 hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 text-white text-sm font-bold rounded-xl transition-colors select-none">
                 ⚡ Pipeline
               </Link>
             )}
-            <Link to={createPageUrl("Blog")} className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl transition-colors">
+            <Link to={createPageUrl("Blog")} className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl transition-colors select-none">
               <Search className="w-4 h-4" /> Search Deals
             </Link>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 rounded-lg text-gray-700">
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 rounded-lg text-foreground dark:text-gray-300 select-none">
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
