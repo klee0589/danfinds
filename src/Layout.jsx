@@ -71,7 +71,7 @@ export default function Layout({ children, currentPageName }) {
               <Link
                 key={link.page}
                 to={createPageUrl(link.page)}
-                className={`text-sm font-medium transition-colors hover:text-amber-600 ${currentPageName === link.page ? "text-amber-600" : "text-gray-700"}`}
+                className={`text-sm font-medium transition-colors hover:text-amber-600 select-none dark:hover:text-amber-400 ${currentPageName === link.page ? "text-amber-600 dark:text-amber-400" : "text-foreground dark:text-gray-300"}`}
               >
                 {link.label}
               </Link>
