@@ -73,9 +73,10 @@ https://m.media-amazon.com/images/I/IMAGEID._AC_SL500_.jpg`,
 
     return Response.json({
       success: true,
-      posts_checked: postsNeedingFix.length,
+      posts_checked: batch.length,
       images_fixed: fixed,
-      images_failed: failed
+      images_failed: failed,
+      remaining
     });
 
   } catch (error) {
