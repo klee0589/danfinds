@@ -54,16 +54,12 @@ export default function PostCard({ post, featured = false }) {
   return (
     <Link to={url} className="block group">
       <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 h-full flex flex-col">
-        {featuredImgSrc && (
-          <div className="overflow-hidden">
-            <img
-              src={featuredImgSrc}
-              alt={post.title}
-              className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-          </div>
-        )}
+        <div className="overflow-hidden">
+          {featuredImgSrc
+            ? <img src={featuredImgSrc} alt={post.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            : <ImgPlaceholder className="w-full h-48" />
+          }
+        </div>
         <div className="p-5 flex flex-col flex-1">
           <span className={`inline-block self-start text-xs font-bold px-2.5 py-1 rounded-full mb-2 ${CATEGORY_COLORS[post.category] || "bg-amber-100 text-amber-700"}`}>
             {post.category}
