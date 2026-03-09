@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, Menu, X, ShoppingBag } from "lucide-react";
+import { Search, Menu, X, ShoppingBag, ArrowLeft, Home as HomeIcon, BookOpen, Grid3x3 } from "lucide-react";
 import { useState, useEffect } from "react";
 
 // Inject AdSense script once
