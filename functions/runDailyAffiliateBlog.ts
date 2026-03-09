@@ -151,35 +151,29 @@ Return complete blog post JSON.`,
         }
       });
 
-      // --- Re-upload Amazon images to avoid hotlink blocking ---
-      async function reuploadImage(url) {
-        if (!url) return null;
+      // --- Generate real images via AI (Amazon CDN blocks hotlinking) ---
+      async function generateImg(prompt) {
         try {
-          const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
-          if (!res.ok) return null;
-          const blob = await res.blob();
-          const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
-          return uploaded.file_url || null;
-        } catch {
-          return null;
-        }
+          const res = await base44.asServiceRole.integrations.Core.GenerateImage({ prompt });
+          return res.url || null;
+        } catch { return null; }
       }
 
-      // Re-upload all product images
+      // Generate product images
       if (result.products?.length) {
         for (const product of result.products) {
-          if (product.image) {
-            const newUrl = await reuploadImage(product.image);
-            if (newUrl) product.image = newUrl;
-          }
+          const imgUrl = await generateImg(
+            `Professional Amazon-style product photo of: ${product.name}. Clean white background, high quality.`
+          );
+          if (imgUrl) product.image = imgUrl;
         }
       }
 
-      // Re-upload featured image
-      if (result.featured_image) {
-        const newFeatured = await reuploadImage(result.featured_image);
-        if (newFeatured) result.featured_image = newFeatured;
-      }
+      // Generate featured image
+      const featuredImgUrl = await generateImg(
+        `Professional product photo for a blog post about: ${topic.keyword}. Clean white background, high quality.`
+      );
+      if (featuredImgUrl) result.featured_image = featuredImgUrl;
 
       // Ensure unique slug
       let slug = result.slug ||
