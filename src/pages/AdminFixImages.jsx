@@ -39,10 +39,32 @@ export default function AdminFixImages() {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <div className="flex items-center gap-3 mb-6">
-        <ImageIcon className="w-6 h-6 text-amber-500" />
-        <h1 className="text-2xl font-bold">Fix Broken Images</h1>
+      <div className="flex items-center justify-between gap-3 mb-6">
+        <div className="flex items-center gap-3">
+          <ImageIcon className="w-6 h-6 text-amber-500" />
+          <h1 className="text-2xl font-bold">Fix Broken Images</h1>
+        </div>
+        <Button
+          onClick={async () => {
+            setBulkRunning(true);
+            setBulkResult(null);
+            const res = await base44.functions.invoke("fixAllMissingImages", {});
+            setBulkResult(res.data);
+            setBulkRunning(false);
+            base44.entities.BlogPost.list("-created_date", 100).then(setPosts);
+          }}
+          disabled={bulkRunning}
+          className="bg-gray-900 hover:bg-gray-700 text-white"
+        >
+          {bulkRunning ? <><RefreshCw className="w-4 h-4 animate-spin mr-2" />Fixing All...</> : "Fix All Missing Images"}
+        </Button>
       </div>
+      {bulkResult && (
+        <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800">
+          ✓ Fixed {bulkResult.images_fixed} images across {bulkResult.posts_checked} posts
+          {bulkResult.images_failed > 0 && ` (${bulkResult.images_failed} failed)`}
+        </div>
+      )}
 
       {loading ? (
         <p className="text-gray-500">Loading posts...</p>
