@@ -24,7 +24,7 @@ const CATEGORY_COLORS = {
 export default function PostCard({ post, featured = false }) {
   const url = createPageUrl(`BlogPost?slug=${post.slug}`);
 
-  const featuredImgSrc = post.featured_image || post.products?.[0]?.image || null;
+  const featuredImgSrc = post.products?.[0]?.image || null;
 
   if (featured) {
     return (
