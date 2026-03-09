@@ -127,7 +127,7 @@ export default function BlogPost() {
         {/* Comparison Table */}
         {post.products?.length > 1 && (
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Quick Comparison</h2>
+            <h2 className="text-2xl font-bold text-foreground dark:text-white mb-4">Quick Comparison</h2>
             <ComparisonTable products={post.products} />
           </div>
         )}
