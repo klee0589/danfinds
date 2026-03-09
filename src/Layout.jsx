@@ -28,7 +28,8 @@ const NAV_LINKS = [
   { label: "Blog", page: "Blog" },
   { label: "Categories", page: "Categories" },
   { label: "About", page: "About" },
-  { label: "Newsletter", page: "Newsletter" }
+  { label: "Newsletter", page: "Newsletter" },
+  { label: "Contact", page: "Contact" }
 ];
 
 const ADMIN_PAGES = ["AdminPipeline","AdminTrends","AdminProducts","AdminGenerate","AdminQueue","AdminFixImages"];
