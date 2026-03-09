@@ -174,10 +174,10 @@ export default function Layout({ children, currentPageName }) {
           <div>
             <h4 className="font-bold mb-3 text-sm uppercase tracking-wide text-gray-300">Legal</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><Link to={createPageUrl("AffiliateDisclosure")} className="hover:text-amber-400 transition-colors">Affiliate Disclosure</Link></li>
-              <li><Link to={createPageUrl("PrivacyPolicy")} className="hover:text-amber-400 transition-colors">Privacy Policy</Link></li>
-              <li><Link to={createPageUrl("About")} className="hover:text-amber-400 transition-colors">About Dan</Link></li>
-              <li><Link to={createPageUrl("Contact")} className="hover:text-amber-400 transition-colors">Contact</Link></li>
+              <li><Link to={createPageUrl("AffiliateDisclosure")} className="hover:text-amber-400 transition-colors select-none">Affiliate Disclosure</Link></li>
+              <li><Link to={createPageUrl("PrivacyPolicy")} className="hover:text-amber-400 transition-colors select-none">Privacy Policy</Link></li>
+              <li><Link to={createPageUrl("About")} className="hover:text-amber-400 transition-colors select-none">About Dan</Link></li>
+              <li><Link to={createPageUrl("Contact")} className="hover:text-amber-400 transition-colors select-none">Contact</Link></li>
             </ul>
           </div>
         </div>
