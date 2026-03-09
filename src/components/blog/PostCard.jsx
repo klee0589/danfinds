@@ -16,7 +16,7 @@ const CATEGORY_COLORS = {
 export default function PostCard({ post, featured = false }) {
   const url = createPageUrl(`BlogPost?slug=${post.slug}`);
 
-  const featuredImgSrc = post.featured_image || `https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80`;
+  const featuredImgSrc = post.featured_image || post.products?.[0]?.image || null;
 
   if (featured) {
     return (
