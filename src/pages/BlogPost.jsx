@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Clock, Tag, ArrowLeft } from "lucide-react";
+import { Clock, Tag, ArrowLeft, ShoppingBag } from "lucide-react";
 import ProductCard from "@/components/blog/ProductCard";
 import AuthorBox from "@/components/blog/AuthorBox";
 import FAQSection from "@/components/blog/FAQSection";
