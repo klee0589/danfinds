@@ -54,11 +54,16 @@ export default function Layout({ children, currentPageName }) {
       {/* Header */}
       <header className="bg-background dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-          <Link to={createPageUrl("Home")} className="flex items-center gap-2 flex-shrink-0">
+          {isSubPage && (
+            <button onClick={() => window.history.back()} className="mr-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors md:hidden select-none">
+              <ArrowLeft className="w-5 h-5 text-foreground dark:text-gray-300" />
+            </button>
+          )}
+          <Link to={createPageUrl("Home")} className="flex items-center gap-2 flex-shrink-0 select-none">
             <div className="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center">
               <ShoppingBag className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-extrabold text-gray-900">Dan<span className="text-amber-500">Finds</span></span>
+            <span className="text-xl font-extrabold text-foreground dark:text-white">Dan<span className="text-amber-500">Finds</span></span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
