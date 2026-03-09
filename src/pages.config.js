@@ -54,10 +54,6 @@ import AdminProducts from './pages/AdminProducts';
 import AdminQueue from './pages/AdminQueue';
 import AdminTrends from './pages/AdminTrends';
 import AffiliateDisclosure from './pages/AffiliateDisclosure';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
-import Categories from './pages/Categories';
-import Home from './pages/Home';
 import Newsletter from './pages/Newsletter';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import __Layout from './Layout.jsx';
@@ -71,16 +67,12 @@ export const PAGES = {
     "AdminQueue": AdminQueue,
     "AdminTrends": AdminTrends,
     "AffiliateDisclosure": AffiliateDisclosure,
-    "Blog": Blog,
-    "BlogPost": BlogPost,
-    "Categories": Categories,
-    "Home": Home,
     "Newsletter": Newsletter,
     "PrivacyPolicy": PrivacyPolicy,
 }
 
 export const pagesConfig = {
-    mainPage: "Home",
+    mainPage: "About",
     Pages: PAGES,
     Layout: __Layout,
 };
