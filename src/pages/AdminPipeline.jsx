@@ -16,6 +16,8 @@ export default function AdminPipeline() {
   const [stats, setStats] = useState({ signals: 0, products: 0, queue: 0, published: 0 });
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [bulkGenerating, setBulkGenerating] = useState(false);
+  const [bulkResult, setBulkResult] = useState(null);
 
   useEffect(() => {
     async function load() {
