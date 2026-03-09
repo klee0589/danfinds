@@ -101,7 +101,7 @@ export default function BlogPost() {
         {post.tags?.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-8">
             {post.tags.map(tag => (
-              <span key={tag} className="flex items-center gap-1 text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">
+              <span key={tag} className="flex items-center gap-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2.5 py-1 rounded-full">
                 <Tag className="w-3 h-3" /> {tag}
               </span>
             ))}
