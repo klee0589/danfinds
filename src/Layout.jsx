@@ -147,6 +147,7 @@ export default function Layout({ children, currentPageName }) {
               <li><Link to={createPageUrl("AffiliateDisclosure")} className="hover:text-amber-400 transition-colors">Affiliate Disclosure</Link></li>
               <li><Link to={createPageUrl("PrivacyPolicy")} className="hover:text-amber-400 transition-colors">Privacy Policy</Link></li>
               <li><Link to={createPageUrl("About")} className="hover:text-amber-400 transition-colors">About Dan</Link></li>
+              <li><Link to={createPageUrl("Contact")} className="hover:text-amber-400 transition-colors">Contact</Link></li>
             </ul>
           </div>
         </div>
