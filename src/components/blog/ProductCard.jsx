@@ -24,12 +24,14 @@ export default function ProductCard({ product, rank }) {
       )}
       <div className="p-6">
         <div className="flex gap-4 mb-4">
-          <img
-            src={product.image || `https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80`}
-            alt={product.name}
-            className="w-24 h-24 object-cover rounded-xl flex-shrink-0 bg-gray-100"
-            loading="lazy"
-          />
+          {product.image && (
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-24 h-24 object-contain rounded-xl flex-shrink-0 bg-gray-50 border border-gray-100 p-1"
+              loading="lazy"
+            />
+          )}
           <div>
             <h3 className="font-bold text-gray-900 text-lg leading-tight mb-1">{product.name}</h3>
             <StarRating rating={product.rating} />
