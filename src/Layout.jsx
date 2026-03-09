@@ -112,8 +112,35 @@ export default function Layout({ children, currentPageName }) {
       {/* Main */}
       <main className="flex-1">{children}</main>
 
+      {/* Bottom Navigation Mobile */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center justify-around" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        {[
+          { icon: HomeIcon, label: "Home", page: "Home" },
+          { icon: BookOpen, label: "Blog", page: "Blog" },
+          { icon: Grid3x3, label: "Categories", page: "Categories" }
+        ].map(({ icon: Icon, label, page }) => (
+          <Link
+            key={page}
+            to={createPageUrl(page)}
+            className={`flex-1 flex flex-col items-center justify-center py-3 px-2 text-xs font-medium transition-colors select-none ${
+              currentPageName === page
+                ? "text-amber-600 dark:text-amber-400"
+                : "text-foreground dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-300"
+            }`}
+          >
+            <Icon className="w-5 h-5 mb-1" />
+            {label}
+          </Link>
+        ))}
+      </nav>
+
+      {/* Main Content with Bottom Padding */}
+      <div style={{ paddingBottom: 'env(safe-area-inset-bottom, 0)' }} className="md:pb-0">
+        {children}
+      </div>
+
       {/* Footer */}
-      <footer className="bg-gray-900 text-white mt-16">
+      <footer className="bg-gray-900 dark:bg-gray-950 text-white mt-16 md:mt-16 mt-24">
         <div className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-1 sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
