@@ -156,6 +156,41 @@ export default function AdminPipeline() {
         ))}
       </div>
 
+      {/* Bulk Generate */}
+      <div className="mt-8 bg-amber-50 border-2 border-amber-300 rounded-2xl p-6">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h3 className="font-bold text-lg text-gray-900 flex items-center gap-2">
+              <RefreshCw className="w-5 h-5 text-amber-500" /> Bulk Generate 20 Posts
+            </h3>
+            <p className="text-gray-600 text-sm mt-1">AI discovers trending topics and writes 20 full blog posts at once. Images can be added after via Fix Images.</p>
+          </div>
+          <button
+            onClick={async () => {
+              setBulkGenerating(true);
+              setBulkResult(null);
+              try {
+                const res = await base44.functions.invoke('generateBulkPosts', { count: 20 });
+                setBulkResult(res.data);
+              } catch (e) {
+                setBulkResult({ error: e.message });
+              } finally {
+                setBulkGenerating(false);
+              }
+            }}
+            disabled={bulkGenerating}
+            className="px-6 py-3 bg-amber-500 hover:bg-amber-600 disabled:bg-amber-300 text-white font-bold rounded-xl transition-colors flex items-center gap-2"
+          >
+            {bulkGenerating ? <><RefreshCw className="w-4 h-4 animate-spin" /> Generating...</> : <><Zap className="w-4 h-4" /> Generate 20 Posts</>}
+          </button>
+        </div>
+        {bulkResult && (
+          <div className={`mt-4 rounded-xl p-4 text-sm font-medium ${bulkResult.error ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-800'}`}>
+            {bulkResult.error ? `Error: ${bulkResult.error}` : `✅ ${bulkResult.message} (${bulkResult.posts_created} posts created)`}
+          </div>
+        )}
+      </div>
+
       {/* Amazon API Status */}
       <div className="mt-8 bg-gray-900 text-white rounded-2xl p-6">
         <div className="flex items-start justify-between flex-wrap gap-4">
