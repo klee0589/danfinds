@@ -13,15 +13,21 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Forbidden' }, { status: 403 });
     }
 
+    const body = await req.json().catch(() => ({}));
+    const limit = body.limit || 2; // process max 2 posts per call to avoid timeout
+
     const posts = await base44.asServiceRole.entities.BlogPost.list('-created_date', 200);
     const postsNeedingFix = posts.filter(p =>
       p.products?.some(prod => !prod.image)
     );
 
+    const batch = postsNeedingFix.slice(0, limit);
+    const remaining = Math.max(0, postsNeedingFix.length - limit);
+
     let fixed = 0;
     let failed = 0;
 
-    for (const post of postsNeedingFix) {
+    for (const post of batch) {
       const products = [...(post.products || [])];
       let changed = false;
 
