@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 function ImgPlaceholder({ className }) {
   return (
-    <div className={`bg-gray-100 flex items-center justify-center ${className}`}>
-      <ShoppingBag className="w-10 h-10 text-gray-300" />
+    <div className={`bg-gray-100 dark:bg-gray-800 flex items-center justify-center ${className}`}>
+      <ShoppingBag className="w-10 h-10 text-gray-300 dark:text-gray-600" />
     </div>
   );
 }
