@@ -28,8 +28,8 @@ export default function PostCard({ post, featured = false }) {
 
   if (featured) {
     return (
-      <Link to={url} className="block group">
-        <div className="relative rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-shadow">
+      <Link to={url} className="block group select-none">
+        <div className="relative rounded-2xl overflow-hidden bg-background dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow">
           {featuredImgSrc
             ? <img src={featuredImgSrc} alt={post.title} className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
             : <ImgPlaceholder className="w-full h-64 md:h-80" />
