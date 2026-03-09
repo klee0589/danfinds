@@ -135,7 +135,7 @@ export default function BlogPost() {
         {/* Products */}
         {post.products?.length > 0 && (
           <div id="products" className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Top Picks</h2>
+            <h2 className="text-2xl font-bold text-foreground dark:text-white mb-6">Top Picks</h2>
             <div className="space-y-8">
               {post.products.map((product, i) => (
                 <ProductCard key={i} product={product} rank={i + 1} />
