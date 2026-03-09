@@ -185,7 +185,7 @@ Return complete blog post JSON.`,
     return Response.json({
       success: true,
       posts_created: publishedPosts.length,
-      message: `Created ${publishedPosts.length} posts. Visit AdminFixImages to add images.`,
+      message: `Created ${publishedPosts.length} posts with images.`,
       posts: publishedPosts
     });
 
