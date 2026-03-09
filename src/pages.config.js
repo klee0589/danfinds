@@ -56,6 +56,9 @@ import AdminTrends from './pages/AdminTrends';
 import AffiliateDisclosure from './pages/AffiliateDisclosure';
 import Newsletter from './pages/Newsletter';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Blog from './pages/Blog';
+import Home from './pages/Home';
+import Categories from './pages/Categories';
 import __Layout from './Layout.jsx';
 
 
@@ -69,6 +72,9 @@ export const PAGES = {
     "AffiliateDisclosure": AffiliateDisclosure,
     "Newsletter": Newsletter,
     "PrivacyPolicy": PrivacyPolicy,
+    "Blog": Blog,
+    "Home": Home,
+    "Categories": Categories,
 }
 
 export const pagesConfig = {
