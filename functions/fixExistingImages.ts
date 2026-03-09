@@ -1,6 +1,6 @@
 /**
- * Fix images for a single BlogPost by ID (call once per post)
- * Pass { post_id: "..." } or omit to get a list of posts needing fixes
+ * Fix images for a single BlogPost - generates ONE image per call
+ * Pass { post_id, type: "featured" } or { post_id, type: "product", product_index: 0 }
  */
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
 
@@ -12,53 +12,30 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Admin access required' }, { status: 403 });
     }
 
-    const { post_id } = await req.json().catch(() => ({}));
-
-    async function generateImg(prompt) {
-      const res = await base44.asServiceRole.integrations.Core.GenerateImage({ prompt });
-      return res.url || null;
-    }
-
-    // If no post_id, return list of posts with broken images
-    if (!post_id) {
-      const posts = await base44.asServiceRole.entities.BlogPost.list('-created_date', 100);
-      const broken = posts
-        .filter(p => p.featured_image?.includes('m.media-amazon.com') || !p.featured_image)
-        .map(p => ({ id: p.id, title: p.title }));
-      return Response.json({ posts_needing_fix: broken });
-    }
+    const { post_id, type, product_index } = await req.json();
+    if (!post_id) return Response.json({ error: 'post_id required' }, { status: 400 });
 
     const post = await base44.asServiceRole.entities.BlogPost.get(post_id);
     if (!post) return Response.json({ error: 'Post not found' }, { status: 404 });
 
-    const updates = {};
+    const res = await base44.asServiceRole.integrations.Core.GenerateImage({
+      prompt: type === 'product' && post.products?.[product_index]
+        ? `Professional Amazon-style product photo of: ${post.products[product_index].name}. Clean white background, high quality.`
+        : `Professional product photo for a blog post about: ${post.title}. Clean white background, high quality Amazon-style photography.`
+    });
 
-    // Fix featured_image
-    if (post.featured_image?.includes('m.media-amazon.com') || !post.featured_image) {
-      updates.featured_image = await generateImg(
-        `Professional product photo for a blog post about: ${post.title}. Clean white background, high quality Amazon-style photography.`
-      );
+    const newUrl = res.url;
+    if (!newUrl) return Response.json({ error: 'Image generation failed' }, { status: 500 });
+
+    if (type === 'product' && product_index !== undefined) {
+      const products = [...(post.products || [])];
+      products[product_index] = { ...products[product_index], image: newUrl };
+      await base44.asServiceRole.entities.BlogPost.update(post_id, { products });
+    } else {
+      await base44.asServiceRole.entities.BlogPost.update(post_id, { featured_image: newUrl });
     }
 
-    // Fix product images
-    if (post.products?.length) {
-      const fixedProducts = [];
-      for (const product of post.products) {
-        if (product.image?.includes('m.media-amazon.com') || !product.image) {
-          const newUrl = await generateImg(
-            `Professional Amazon-style product photo of: ${product.name}. Clean white background, high quality.`
-          );
-          fixedProducts.push({ ...product, image: newUrl || product.image });
-        } else {
-          fixedProducts.push(product);
-        }
-      }
-      updates.products = fixedProducts;
-    }
-
-    await base44.asServiceRole.entities.BlogPost.update(post.id, updates);
-
-    return Response.json({ success: true, post_id, title: post.title });
+    return Response.json({ success: true, url: newUrl });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
