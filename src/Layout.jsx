@@ -52,7 +52,7 @@ export default function Layout({ children, currentPageName }) {
       </div>
 
       {/* Header */}
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+      <header className="bg-background dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
           <Link to={createPageUrl("Home")} className="flex items-center gap-2 flex-shrink-0">
             <div className="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center">
