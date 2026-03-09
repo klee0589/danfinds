@@ -45,7 +45,7 @@ export const SAMPLE_POSTS = [
       },
       {
         name: "Chillbo Lazybone Inflatable Lounger",
-        image: "https://images-na.ssl-images-amazon.com/images/P/B09TVMBGNR.01._SL250_.jpg",
+        image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B09TVMBGNR&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_",
         summary: "No-pump inflatable couch that fills with air in seconds — perfect for beach days, festivals, or backyard lounging.",
         price_range: "$37.99",
         rating: 4.1,
