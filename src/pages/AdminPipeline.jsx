@@ -169,9 +169,17 @@ export default function AdminPipeline() {
             onClick={async () => {
               setBulkGenerating(true);
               setBulkResult(null);
+              let totalCreated = 0;
+              const errors = [];
               try {
-                const res = await base44.functions.invoke('generateBulkPosts', { count: 20 });
-                setBulkResult(res.data);
+                // Run 4 batches of 5 posts sequentially
+                for (let i = 0; i < 4; i++) {
+                  setBulkResult({ progress: `Batch ${i + 1}/4 — generating 5 posts...` });
+                  const res = await base44.functions.invoke('generateBulkPosts', { count: 5 });
+                  if (res.data?.error) { errors.push(res.data.error); break; }
+                  totalCreated += res.data?.posts_created || 0;
+                }
+                setBulkResult({ success: true, total: totalCreated, errors });
               } catch (e) {
                 setBulkResult({ error: e.message });
               } finally {
@@ -185,8 +193,8 @@ export default function AdminPipeline() {
           </button>
         </div>
         {bulkResult && (
-          <div className={`mt-4 rounded-xl p-4 text-sm font-medium ${bulkResult.error ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-800'}`}>
-            {bulkResult.error ? `Error: ${bulkResult.error}` : `✅ ${bulkResult.message} (${bulkResult.posts_created} posts created)`}
+          <div className={`mt-4 rounded-xl p-4 text-sm font-medium ${bulkResult.error ? 'bg-red-100 text-red-700' : bulkResult.progress ? 'bg-amber-100 text-amber-800' : 'bg-green-100 text-green-800'}`}>
+            {bulkResult.error ? `Error: ${bulkResult.error}` : bulkResult.progress ? `⏳ ${bulkResult.progress}` : `✅ Done! ${bulkResult.total} posts created. Visit Fix Images to add photos.`}
           </div>
         )}
       </div>
