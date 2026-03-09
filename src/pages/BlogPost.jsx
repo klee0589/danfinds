@@ -146,9 +146,9 @@ export default function BlogPost() {
 
         {/* Buying Guide */}
         {post.buying_guide && (
-          <div id="buying-guide" className="bg-amber-50 border border-amber-100 rounded-2xl p-6 mb-10">
-            <h2 className="text-xl font-bold text-gray-900 mb-3">🛒 Buying Guide</h2>
-            <div className="text-gray-700 leading-relaxed whitespace-pre-line text-sm">{post.buying_guide}</div>
+          <div id="buying-guide" className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900 rounded-2xl p-6 mb-10">
+            <h2 className="text-xl font-bold text-foreground dark:text-white mb-3">🛒 Buying Guide</h2>
+            <div className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line text-sm">{post.buying_guide}</div>
           </div>
         )}
 
