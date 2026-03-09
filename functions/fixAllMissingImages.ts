@@ -49,18 +49,25 @@ https://m.media-amazon.com/images/I/IMAGEID._AC_SL500_.jpg`,
           });
 
           const imageUrl = llmResult.image_url;
-          if (imageUrl) {
-            const imgRes = await fetch(imageUrl);
-            if (imgRes.ok) {
-              const blob = await imgRes.blob();
-              const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
-              if (uploaded.file_url) {
-                products[i] = { ...products[i], image: uploaded.file_url };
-                changed = true;
-                fixed++;
-              }
-            }
-          }
+           if (imageUrl) {
+             const imgRes = await fetch(imageUrl);
+             if (imgRes.ok) {
+               const arrayBuffer = await imgRes.arrayBuffer();
+               // Convert arrayBuffer to base64 string
+               const uint8Array = new Uint8Array(arrayBuffer);
+               let binary = '';
+               for (let j = 0; j < uint8Array.length; j++) {
+                 binary += String.fromCharCode(uint8Array[j]);
+               }
+               const base64 = btoa(binary);
+               const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: base64 });
+               if (uploaded.file_url) {
+                 products[i] = { ...products[i], image: uploaded.file_url };
+                 changed = true;
+                 fixed++;
+               }
+             }
+           }
         } catch {
           failed++;
         }
