@@ -1,20 +1,7 @@
 /**
- * One-time fix: re-upload all Amazon images in existing BlogPost records to Base44 CDN
+ * One-time fix: regenerate images for all existing BlogPost records using AI
  */
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
-
-async function reuploadImage(url, base44) {
-  if (!url || !url.includes('m.media-amazon.com')) return null;
-  try {
-    const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
-    if (!res.ok) return null;
-    const blob = await res.blob();
-    const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
-    return uploaded.file_url || null;
-  } catch {
-    return null;
-  }
-}
 
 Deno.serve(async (req) => {
   try {
@@ -24,46 +11,48 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Admin access required' }, { status: 403 });
     }
 
+    async function generateImg(prompt) {
+      try {
+        const res = await base44.asServiceRole.integrations.Core.GenerateImage({ prompt });
+        return res.url || null;
+      } catch { return null; }
+    }
+
     const posts = await base44.asServiceRole.entities.BlogPost.list('-created_date', 100);
     const results = [];
 
     for (const post of posts) {
-      let changed = false;
       const updates = {};
 
-      // Fix featured_image
-      if (post.featured_image?.includes('m.media-amazon.com')) {
-        const newUrl = await reuploadImage(post.featured_image, base44);
-        if (newUrl) {
-          updates.featured_image = newUrl;
-          changed = true;
-        }
+      // Fix featured_image if it's an Amazon URL
+      if (post.featured_image?.includes('m.media-amazon.com') || !post.featured_image) {
+        const newUrl = await generateImg(
+          `Professional product photo for a blog post about: ${post.title}. Clean white background, high quality Amazon-style photography.`
+        );
+        if (newUrl) updates.featured_image = newUrl;
       }
 
       // Fix product images
       if (post.products?.length) {
         const fixedProducts = [];
         for (const product of post.products) {
-          if (product.image?.includes('m.media-amazon.com')) {
-            const newUrl = await reuploadImage(product.image, base44);
-            if (newUrl) {
-              fixedProducts.push({ ...product, image: newUrl });
-              changed = true;
-            } else {
-              fixedProducts.push(product);
-            }
+          if (product.image?.includes('m.media-amazon.com') || !product.image) {
+            const newUrl = await generateImg(
+              `Professional Amazon-style product photo of: ${product.name}. Clean white background, high quality.`
+            );
+            fixedProducts.push({ ...product, image: newUrl || product.image });
           } else {
             fixedProducts.push(product);
           }
         }
-        if (changed) updates.products = fixedProducts;
+        updates.products = fixedProducts;
       }
 
-      if (changed) {
+      if (Object.keys(updates).length > 0) {
         await base44.asServiceRole.entities.BlogPost.update(post.id, updates);
-        results.push({ id: post.id, title: post.title, fixed: true });
+        results.push({ title: post.title, fixed: true });
       } else {
-        results.push({ id: post.id, title: post.title, fixed: false });
+        results.push({ title: post.title, fixed: false });
       }
     }
 
