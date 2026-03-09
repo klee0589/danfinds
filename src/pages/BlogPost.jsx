@@ -46,8 +46,8 @@ export default function BlogPost() {
   if (!post) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-3">Post not found</h1>
-        <p className="text-gray-500 mb-6">This post may have been removed or the link is incorrect.</p>
+        <h1 className="text-2xl font-bold text-foreground dark:text-white mb-3">Post not found</h1>
+        <p className="text-gray-500 dark:text-gray-400 mb-6">This post may have been removed or the link is incorrect.</p>
         <Link to={createPageUrl("Blog")} className="text-amber-600 font-medium hover:underline">
           ← Back to Blog
         </Link>
