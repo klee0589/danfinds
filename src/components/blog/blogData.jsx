@@ -16,7 +16,7 @@ export const SAMPLE_POSTS = [
     slug: "best-summer-outdoor-finds-amazon-2025",
     category: "Amazon Finds",
     excerpt: "From beach tents to solar chargers, these 6 Amazon picks are the ultimate summer outdoor essentials — all under $40 and all Dan-approved.",
-    featured_image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0BR7LD3R1&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL500_",
+    featured_image: "https://m.media-amazon.com/images/I/41nTJBthZuL._AC_SL500_.jpg",
     author: "Dan",
     author_bio: "Dan is an Amazon deal hunter who tests and reviews outdoor gear, home finds, and everyday essentials so you don't have to.",
     author_avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80",
@@ -33,7 +33,7 @@ export const SAMPLE_POSTS = [
     products: [
       {
         name: "LetsFunny Large Easy Setup Beach Tent (Mint Green)",
-        image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0BR7LD3R1&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_",
+        image: "https://m.media-amazon.com/images/I/41nTJBthZuL._AC_SL250_.jpg",
         summary: "A spacious UPF 50+ beach tent with 3 mesh windows and an extended floor — fits 3-4 people and sets up in minutes.",
         price_range: "$29.99",
         rating: 4.4,
@@ -57,7 +57,7 @@ export const SAMPLE_POSTS = [
       },
       {
         name: "Genovega Waterproof Sandproof Beach Blanket (80\"x80\")",
-        image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0F5QFW6K6&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_",
+        image: "https://m.media-amazon.com/images/I/51p5rhkSAUL._AC_SL250_.jpg",
         summary: "An oversized 80\"x80\" waterproof picnic blanket that fits 6-8 adults — perfect for beach, park, concerts, and camping.",
         price_range: "$24.99",
         rating: 4.7,
@@ -93,7 +93,7 @@ export const SAMPLE_POSTS = [
       },
       {
         name: "BLAVOR Solar Power Bank 10,000mAh",
-        image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07FDXDB3W&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_",
+        image: "https://m.media-amazon.com/images/I/51r8EQFBoNL._AC_SL250_.jpg",
         summary: "The #1 best-selling solar charger — 20W fast charging, wireless charging, dual flashlights, and IPX5 waterproof for any adventure.",
         price_range: "$26.99",
         rating: 4.2,
