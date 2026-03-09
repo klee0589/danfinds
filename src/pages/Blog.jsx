@@ -1,6 +1,8 @@
 import { useState, useMemo } from "react";
 import { Search, X } from "lucide-react";
 import { createPageUrl } from "@/utils";
+import { useQuery } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 import PostCard from "../components/blog/PostCard";
 import NewsletterBox from "../components/blog/NewsletterBox";
 import { SAMPLE_POSTS, CATEGORIES } from "../components/blog/blogData";
@@ -16,16 +18,26 @@ export default function Blog() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
 
+  const { data: dbPosts = [] } = useQuery({
+    queryKey: ['blog-posts'],
+    queryFn: () => base44.entities.BlogPost.list('-created_date', 100),
+  });
+
+  const allPosts = useMemo(() => {
+    const dbSlugs = new Set(dbPosts.map(p => p.slug));
+    return [...dbPosts, ...SAMPLE_POSTS.filter(p => !dbSlugs.has(p.slug))];
+  }, [dbPosts]);
+
   const filtered = useMemo(() => {
-    return SAMPLE_POSTS.filter(post => {
+    return allPosts.filter(post => {
       const matchCat = activeCategory === "All" || post.category === activeCategory;
-      const matchSearch = !search || post.title.toLowerCase().includes(search.toLowerCase()) || post.excerpt.toLowerCase().includes(search.toLowerCase());
+      const matchSearch = !search || post.title?.toLowerCase().includes(search.toLowerCase()) || post.excerpt?.toLowerCase().includes(search.toLowerCase());
       return matchCat && matchSearch;
     });
-  }, [search, activeCategory]);
+  }, [search, activeCategory, allPosts]);
 
-  const featuredPost = SAMPLE_POSTS.find(p => p.is_featured);
-  const popularPosts = [...SAMPLE_POSTS].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 5);
+  const featuredPost = allPosts.find(p => p.is_featured);
+  const popularPosts = [...allPosts].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 5);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -111,8 +123,8 @@ export default function Blog() {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {filtered.map(post => (
-                  <PostCard key={post.id} post={post} />
+                {filtered.map((post, i) => (
+                  <PostCard key={post.id || post.slug || i} post={post} />
                 ))}
               </div>
             )}
@@ -124,7 +136,7 @@ export default function Blog() {
               <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">🔥 Most Popular</h3>
               <ul className="space-y-3">
                 {popularPosts.map((post, i) => (
-                  <li key={post.id} className="flex gap-3 group">
+                  <li key={post.id || post.slug || i} className="flex gap-3 group">
                     <span className="text-2xl font-extrabold text-gray-100 flex-shrink-0 leading-none">{i + 1}</span>
                     <a href={createPageUrl(`BlogPost?slug=${post.slug}`)} className="text-sm text-gray-700 group-hover:text-amber-600 transition-colors font-medium leading-snug">{post.title}</a>
                   </li>
@@ -136,7 +148,7 @@ export default function Blog() {
               <h3 className="font-bold text-gray-900 mb-3">Browse Categories</h3>
               <ul className="space-y-2">
                 {CATEGORIES.map(cat => {
-                  const count = SAMPLE_POSTS.filter(p => p.category === cat).length;
+                  const count = allPosts.filter(p => p.category === cat).length;
                   return (
                     <li key={cat}>
                       <button

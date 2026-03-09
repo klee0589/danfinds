@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 import { Clock, AlertCircle, ExternalLink } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 import { SAMPLE_POSTS } from "../components/blog/blogData";
 import Breadcrumb from "../components/blog/Breadcrumb";
 import TableOfContents from "../components/blog/TableOfContents";
@@ -38,7 +40,30 @@ export default function BlogPost() {
   const params = new URLSearchParams(window.location.search);
   const slug = params.get("slug");
 
-  const post = useMemo(() => SAMPLE_POSTS.find(p => p.slug === slug) || SAMPLE_POSTS[0], [slug]);
+  const { data: dbPost, isLoading } = useQuery({
+    queryKey: ['blog-post', slug],
+    queryFn: async () => {
+      if (!slug) return null;
+      const results = await base44.entities.BlogPost.filter({ slug });
+      return results[0] || null;
+    },
+    enabled: !!slug,
+  });
+
+  const post = useMemo(() => {
+    if (isLoading) return null;
+    return dbPost || SAMPLE_POSTS.find(p => p.slug === slug) || SAMPLE_POSTS[0];
+  }, [dbPost, slug, isLoading]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-gray-400 text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!post) return null;
 
   // Schema markup JSON-LD
   const schemaMarkup = {
@@ -48,7 +73,7 @@ export default function BlogPost() {
     "description": post.meta_description,
     "author": { "@type": "Person", "name": post.author },
     "image": post.featured_image,
-    "datePublished": "2024-01-01"
+    "datePublished": post.created_date || "2024-01-01"
   };
 
   const topProducts = (post.products || []).slice(0, 3);
@@ -81,7 +106,7 @@ export default function BlogPost() {
         <div className="flex flex-wrap items-center gap-4 mt-4 mb-6 text-sm text-gray-500">
           <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {post.read_time} min read</span>
           <span>By <strong className="text-gray-700">{post.author}</strong></span>
-          <span>{post.views?.toLocaleString()} readers</span>
+          <span>{post.views?.toLocaleString() || 0} readers</span>
         </div>
 
         {/* Affiliate Disclosure */}

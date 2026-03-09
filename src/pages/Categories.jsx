@@ -1,5 +1,8 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { useQuery } from "@tanstack/react-query";
+import { base44 } from "@/api/base44Client";
 import PostCard from "../components/blog/PostCard";
 import Breadcrumb from "../components/blog/Breadcrumb";
 import { SAMPLE_POSTS, CATEGORIES } from "../components/blog/blogData";
@@ -25,7 +28,17 @@ export default function Categories() {
   const params = new URLSearchParams(window.location.search);
   const activeCat = params.get("cat");
 
-  const filteredPosts = activeCat ? SAMPLE_POSTS.filter(p => p.category === activeCat) : [];
+  const { data: dbPosts = [] } = useQuery({
+    queryKey: ['blog-posts'],
+    queryFn: () => base44.entities.BlogPost.list('-created_date', 100),
+  });
+
+  const allPosts = useMemo(() => {
+    const dbSlugs = new Set(dbPosts.map(p => p.slug));
+    return [...dbPosts, ...SAMPLE_POSTS.filter(p => !dbSlugs.has(p.slug))];
+  }, [dbPosts]);
+
+  const filteredPosts = activeCat ? allPosts.filter(p => p.category === activeCat) : [];
 
   if (activeCat) {
     return (
@@ -54,7 +67,7 @@ export default function Categories() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPosts.map(post => <PostCard key={post.id} post={post} />)}
+              {filteredPosts.map((post, i) => <PostCard key={post.id || post.slug || i} post={post} />)}
             </div>
           )}
         </div>
@@ -75,8 +88,8 @@ export default function Categories() {
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {CATEGORIES.map(cat => {
-            const count = SAMPLE_POSTS.filter(p => p.category === cat).length;
-            const preview = SAMPLE_POSTS.filter(p => p.category === cat)[0];
+            const count = allPosts.filter(p => p.category === cat).length;
+            const preview = allPosts.find(p => p.category === cat);
             return (
               <Link key={cat} to={createPageUrl(`Categories?cat=${encodeURIComponent(cat)}`)} className="group block bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
                 {preview && (
