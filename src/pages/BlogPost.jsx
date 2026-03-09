@@ -163,7 +163,7 @@ export default function BlogPost() {
         {/* FAQs */}
         {post.faqs?.length > 0 && (
           <div id="faqs" className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-bold text-foreground dark:text-white mb-4">Frequently Asked Questions</h2>
             <FAQSection faqs={post.faqs} />
           </div>
         )}
