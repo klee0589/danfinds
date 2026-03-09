@@ -185,10 +185,7 @@ Return complete blog post JSON.`,
       }
       existingSlugs.add(slug);
 
-      const featuredImage =
-        result.featured_image ||
-        result.products?.[0]?.image ||
-        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80';
+      const featuredImage = result.featured_image || result.products?.[0]?.image || '';
 
       const blogPost = await base44.asServiceRole.entities.BlogPost.create({
         title: result.title || topic.keyword,
