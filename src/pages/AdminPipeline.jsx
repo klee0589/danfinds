@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { LayoutDashboard, Zap, TrendingUp, Package, ClipboardList, Settings } from "lucide-react";
+import { LayoutDashboard, Zap, TrendingUp, Package, ClipboardList, Settings, RefreshCw } from "lucide-react";
 
 const TABS = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, page: "AdminPipeline" },
