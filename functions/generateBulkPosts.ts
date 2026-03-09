@@ -115,7 +115,8 @@ Return complete blog post JSON.`,
                   pros: { type: "array", items: { type: "string" } },
                   cons: { type: "array", items: { type: "string" } },
                   key_features: { type: "array", items: { type: "string" } },
-                  affiliate_url: { type: "string" }
+                  affiliate_url: { type: "string" },
+                  image: { type: "string" }
                 }
               }
             }
@@ -123,15 +124,28 @@ Return complete blog post JSON.`,
         }
       });
 
-      // Fix any /dp/ links that snuck through
+      // Fix any /dp/ links that snuck through, and re-host product images
       if (result.products) {
         for (const product of result.products) {
           if (product.affiliate_url && product.affiliate_url.includes('/dp/')) {
             const q = encodeURIComponent(product.name || topic.keyword);
             product.affiliate_url = `https://www.amazon.com/s?k=${q}&tag=${associateTag}`;
           }
-          // No images yet - will be generated via AdminFixImages
-          product.image = '';
+          // Fetch and re-upload Amazon image to app storage
+          if (product.image) {
+            try {
+              const imgRes = await fetch(product.image);
+              if (imgRes.ok) {
+                const blob = await imgRes.blob();
+                const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+                product.image = uploaded.file_url || '';
+              } else {
+                product.image = '';
+              }
+            } catch {
+              product.image = '';
+            }
+          }
         }
       }
 
