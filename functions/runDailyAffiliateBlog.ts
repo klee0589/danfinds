@@ -151,6 +151,36 @@ Return complete blog post JSON.`,
         }
       });
 
+      // --- Re-upload Amazon images to avoid hotlink blocking ---
+      async function reuploadImage(url) {
+        if (!url) return null;
+        try {
+          const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+          if (!res.ok) return null;
+          const blob = await res.blob();
+          const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+          return uploaded.file_url || null;
+        } catch {
+          return null;
+        }
+      }
+
+      // Re-upload all product images
+      if (result.products?.length) {
+        for (const product of result.products) {
+          if (product.image) {
+            const newUrl = await reuploadImage(product.image);
+            if (newUrl) product.image = newUrl;
+          }
+        }
+      }
+
+      // Re-upload featured image
+      if (result.featured_image) {
+        const newFeatured = await reuploadImage(result.featured_image);
+        if (newFeatured) result.featured_image = newFeatured;
+      }
+
       // Ensure unique slug
       let slug = result.slug ||
         topic.keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
