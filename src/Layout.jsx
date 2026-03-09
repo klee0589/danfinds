@@ -31,7 +31,7 @@ const NAV_LINKS = [
   { label: "Newsletter", page: "Newsletter" }
 ];
 
-const ADMIN_PAGES = ["AdminPipeline","AdminTrends","AdminProducts","AdminGenerate","AdminQueue"];
+const ADMIN_PAGES = ["AdminPipeline","AdminTrends","AdminProducts","AdminGenerate","AdminQueue","AdminFixImages"];
 
 export default function Layout({ children, currentPageName }) {
   useAdSense();
