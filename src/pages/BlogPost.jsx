@@ -154,9 +154,9 @@ export default function BlogPost() {
 
         {/* Conclusion */}
         {post.conclusion && (
-          <div className="bg-gray-50 rounded-2xl p-6 mb-10">
-            <h2 className="text-xl font-bold text-gray-900 mb-3">Final Thoughts</h2>
-            <p className="text-gray-700 leading-relaxed">{post.conclusion}</p>
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 mb-10">
+            <h2 className="text-xl font-bold text-foreground dark:text-white mb-3">Final Thoughts</h2>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{post.conclusion}</p>
           </div>
         )}
 
