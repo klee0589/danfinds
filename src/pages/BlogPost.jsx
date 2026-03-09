@@ -44,6 +44,21 @@ export default function BlogPost() {
     );
   }
 
+  // Set meta tags for SEO
+  useEffect(() => {
+    if (post) {
+      document.title = post.meta_title || post.title;
+      
+      let metaDescription = document.querySelector('meta[name="description"]');
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.name = 'description';
+        document.head.appendChild(metaDescription);
+      }
+      metaDescription.content = post.meta_description || post.excerpt || '';
+    }
+  }, [post]);
+
   if (!post) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 text-center">
