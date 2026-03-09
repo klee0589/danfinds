@@ -48,6 +48,7 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import About from './pages/About';
+import AdminFixImages from './pages/AdminFixImages';
 import AdminGenerate from './pages/AdminGenerate';
 import AdminPipeline from './pages/AdminPipeline';
 import AdminProducts from './pages/AdminProducts';
@@ -60,12 +61,12 @@ import Categories from './pages/Categories';
 import Home from './pages/Home';
 import Newsletter from './pages/Newsletter';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-import AdminFixImages from './pages/AdminFixImages';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "About": About,
+    "AdminFixImages": AdminFixImages,
     "AdminGenerate": AdminGenerate,
     "AdminPipeline": AdminPipeline,
     "AdminProducts": AdminProducts,
@@ -78,7 +79,6 @@ export const PAGES = {
     "Home": Home,
     "Newsletter": Newsletter,
     "PrivacyPolicy": PrivacyPolicy,
-    "AdminFixImages": AdminFixImages,
 }
 
 export const pagesConfig = {

@@ -58,11 +58,13 @@ export default function BlogPost() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Image */}
-      {post.featured_image && (
-        <div className="w-full h-64 md:h-96 overflow-hidden bg-gray-100">
-          <img src={post.featured_image} alt={post.title} className="w-full h-full object-cover" />
-        </div>
-      )}
+      <div className="w-full h-64 md:h-96 overflow-hidden bg-gray-100">
+        <img
+          src={post.featured_image || `https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&q=80`}
+          alt={post.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Breadcrumb items={[
