@@ -32,11 +32,11 @@ export default function BlogPost() {
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="h-8 bg-gray-200 rounded w-3/4 mb-4 animate-pulse" />
-        <div className="h-64 bg-gray-200 rounded-2xl mb-8 animate-pulse" />
+        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4 animate-pulse" />
+        <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-2xl mb-8 animate-pulse" />
         <div className="space-y-3">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-4 bg-gray-100 rounded animate-pulse" />
+            <div key={i} className="h-4 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
           ))}
         </div>
       </div>
