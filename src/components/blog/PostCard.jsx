@@ -53,6 +53,7 @@ export default function PostCard({ post, featured = false }) {
             alt={post.title}
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
+            onError={e => { e.target.onerror = null; e.target.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80"; }}
           />
         </div>
         <div className="p-5 flex flex-col flex-1">
