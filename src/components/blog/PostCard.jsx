@@ -1,6 +1,14 @@
-import { Clock, Tag } from "lucide-react";
+import { Clock, Tag, ShoppingBag } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import { Link } from "react-router-dom";
+
+function ImgPlaceholder({ className }) {
+  return (
+    <div className={`bg-gray-100 flex items-center justify-center ${className}`}>
+      <ShoppingBag className="w-10 h-10 text-gray-300" />
+    </div>
+  );
+}
 
 const CATEGORY_COLORS = {
   "Best Products": "bg-purple-100 text-purple-700",
