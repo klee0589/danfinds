@@ -58,15 +58,12 @@ export default function BlogPost() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Image */}
-      {(post.featured_image || post.products?.[0]?.image) && (
-        <div className="w-full h-64 md:h-96 overflow-hidden bg-gray-100">
-          <img
-            src={post.featured_image || post.products[0].image}
-            alt={post.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      )}
+      <div className="w-full h-64 md:h-96 overflow-hidden bg-gray-100 flex items-center justify-center">
+        {(post.featured_image || post.products?.[0]?.image)
+          ? <img src={post.featured_image || post.products[0].image} alt={post.title} className="w-full h-full object-cover" />
+          : <ShoppingBag className="w-20 h-20 text-gray-300" />
+        }
+      </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Breadcrumb items={[
