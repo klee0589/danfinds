@@ -18,13 +18,30 @@ Deno.serve(async (req) => {
     const post = await base44.asServiceRole.entities.BlogPost.get(post_id);
     if (!post) return Response.json({ error: 'Post not found' }, { status: 404 });
 
-    const res = await base44.asServiceRole.integrations.Core.GenerateImage({
-      prompt: type === 'product' && post.products?.[product_index]
-        ? `Professional Amazon-style product photo of: ${post.products[product_index].name}. Clean white background, high quality.`
-        : `Professional product photo for a blog post about: ${post.title}. Clean white background, high quality Amazon-style photography.`
-    });
+    // Ask LLM for a real Amazon image URL for this product/post
+    const { image_url } = await req.json().catch(() => ({}));
+    let newUrl = null;
 
-    const newUrl = res.url;
+    if (image_url) {
+      // Re-host caller-provided URL
+      const imgRes = await fetch(image_url);
+      if (imgRes.ok) {
+        const blob = await imgRes.blob();
+        const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+        newUrl = uploaded.file_url || null;
+      }
+    }
+
+    // Fallback: generate via AI if no image URL provided
+    if (!newUrl) {
+      const res = await base44.asServiceRole.integrations.Core.GenerateImage({
+        prompt: type === 'product' && post.products?.[product_index]
+          ? `Professional Amazon-style product photo of: ${post.products[product_index].name}. Clean white background, high quality.`
+          : `Professional product photo for a blog post about: ${post.title}. Clean white background, high quality Amazon-style photography.`
+      });
+      newUrl = res.url || null;
+    }
+
     if (!newUrl) return Response.json({ error: 'Image generation failed' }, { status: 500 });
 
     if (type === 'product' && product_index !== undefined) {
