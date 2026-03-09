@@ -59,6 +59,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Blog from './pages/Blog';
 import Home from './pages/Home';
 import Categories from './pages/Categories';
+import BlogPost from './pages/BlogPost';
 import __Layout from './Layout.jsx';
 
 
@@ -75,6 +76,7 @@ export const PAGES = {
     "Blog": Blog,
     "Home": Home,
     "Categories": Categories,
+    "BlogPost": BlogPost,
 }
 
 export const pagesConfig = {
