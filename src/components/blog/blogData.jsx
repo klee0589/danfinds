@@ -69,7 +69,7 @@ export const SAMPLE_POSTS = [
       },
       {
         name: "Qevooon Camping Hammock with Mosquito Net",
-        image: "https://images-na.ssl-images-amazon.com/images/P/B0CSYY2LRT.01._SL250_.jpg",
+        image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0CSYY2LRT&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_",
         summary: "A double hammock with built-in mosquito net, 10ft tree straps, and 500 lb capacity — no bugs, no fuss.",
         price_range: "$29.99",
         rating: 4.6,
