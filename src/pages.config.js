@@ -62,7 +62,6 @@ import Contact from './pages/Contact';
 import Home from './pages/Home';
 import Newsletter from './pages/Newsletter';
 import PrivacyPolicy from './pages/PrivacyPolicy';
-import Sitemap from './pages/Sitemap';
 import __Layout from './Layout.jsx';
 
 
@@ -82,7 +81,6 @@ export const PAGES = {
     "Home": Home,
     "Newsletter": Newsletter,
     "PrivacyPolicy": PrivacyPolicy,
-    "Sitemap": Sitemap,
 }
 
 export const pagesConfig = {
