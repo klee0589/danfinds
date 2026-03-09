@@ -154,7 +154,7 @@ export default function Layout({ children, currentPageName }) {
             <ul className="space-y-2 text-sm text-gray-400">
               {NAV_LINKS.map(link => (
                 <li key={link.page}>
-                  <Link to={createPageUrl(link.page)} className="hover:text-amber-400 transition-colors">{link.label}</Link>
+                  <Link to={createPageUrl(link.page)} className="hover:text-amber-400 transition-colors select-none">{link.label}</Link>
                 </li>
               ))}
             </ul>
