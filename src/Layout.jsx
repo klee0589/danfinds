@@ -109,8 +109,10 @@ export default function Layout({ children, currentPageName }) {
         )}
       </header>
 
-      {/* Main */}
-      <main className="flex-1 mb-20 md:mb-0"></main>
+      {/* Main Content */}
+      <main className="flex-1 mb-20 md:mb-0">
+        {children}
+      </main>
 
       {/* Bottom Navigation Mobile */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center justify-around" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
@@ -133,11 +135,6 @@ export default function Layout({ children, currentPageName }) {
           </Link>
         ))}
       </nav>
-
-      {/* Main Content with Bottom Padding */}
-      <div style={{ paddingBottom: 'env(safe-area-inset-bottom, 0)' }} className="md:pb-0">
-        {children}
-      </div>
 
       {/* Footer */}
       <footer className="bg-gray-900 dark:bg-gray-950 text-white mt-16 md:mt-16 mt-24">
