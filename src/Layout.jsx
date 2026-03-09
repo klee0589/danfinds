@@ -94,13 +94,13 @@ export default function Layout({ children, currentPageName }) {
         </div>
 
         {mobileOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 px-4 pb-4">
+          <div className="md:hidden bg-background dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 px-4 pb-4">
             {NAV_LINKS.map(link => (
               <Link
                 key={link.page}
                 to={createPageUrl(link.page)}
                 onClick={() => setMobileOpen(false)}
-                className="block py-3 text-sm font-medium text-gray-700 hover:text-amber-600 border-b border-gray-50"
+                className="block py-3 text-sm font-medium text-foreground dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 border-b border-gray-100 dark:border-gray-800 select-none"
               >
                 {link.label}
               </Link>
