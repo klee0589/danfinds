@@ -73,7 +73,7 @@ export default function BlogPost() {
         ]} />
 
         {/* Meta */}
-        <div className="flex flex-wrap gap-3 items-center text-sm text-gray-500 mt-4 mb-3">
+        <div className="flex flex-wrap gap-3 items-center text-sm text-gray-500 dark:text-gray-400 mt-4 mb-3">
           {post.category && (
             <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full font-medium text-xs">
               {post.category}
