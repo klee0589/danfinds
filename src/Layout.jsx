@@ -164,10 +164,10 @@ export default function Layout({ children, currentPageName }) {
             <h4 className="font-bold mb-3 text-sm uppercase tracking-wide text-gray-300">Categories</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               {["Fitness Gear", "Tech Accessories", "Home Organization", "Deals Under $50"].map(cat => (
-                <li key={cat}>
-                  <Link to={createPageUrl(`Categories?cat=${encodeURIComponent(cat)}`)} className="hover:text-amber-400 transition-colors">{cat}</Link>
-                </li>
-              ))}
+                 <li key={cat}>
+                   <Link to={createPageUrl(`Categories?cat=${encodeURIComponent(cat)}`)} className="hover:text-amber-400 transition-colors select-none">{cat}</Link>
+                 </li>
+               ))}
             </ul>
           </div>
 
