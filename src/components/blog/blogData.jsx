@@ -57,7 +57,7 @@ export const SAMPLE_POSTS = [
       },
       {
         name: "Genovega Waterproof Sandproof Beach Blanket (80\"x80\")",
-        image: "https://images-na.ssl-images-amazon.com/images/P/B0F5QFW6K6.01._SL250_.jpg",
+        image: "https://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0F5QFW6K6&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_",
         summary: "An oversized 80\"x80\" waterproof picnic blanket that fits 6-8 adults — perfect for beach, park, concerts, and camping.",
         price_range: "$24.99",
         rating: 4.7,
