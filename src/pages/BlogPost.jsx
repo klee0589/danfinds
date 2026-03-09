@@ -60,7 +60,7 @@ export default function BlogPost() {
       {/* Hero Image */}
       {post.featured_image && (
         <div className="w-full h-64 md:h-96 overflow-hidden bg-gray-100">
-          <img src={post.featured_image} alt={post.title} className="w-full h-full object-cover" />
+          <img src={post.featured_image} alt={post.title} className="w-full h-full object-cover" onError={e => { e.target.onerror = null; e.target.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80"; }} />
         </div>
       )}
 
