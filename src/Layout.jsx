@@ -110,7 +110,7 @@ export default function Layout({ children, currentPageName }) {
       </header>
 
       {/* Main */}
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 mb-20 md:mb-0"></main>
 
       {/* Bottom Navigation Mobile */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center justify-around" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
