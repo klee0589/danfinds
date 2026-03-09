@@ -52,8 +52,8 @@ export default function PostCard({ post, featured = false }) {
   }
 
   return (
-    <Link to={url} className="block group">
-      <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 h-full flex flex-col">
+    <Link to={url} className="block group select-none">
+      <div className="bg-background dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700 h-full flex flex-col">
         <div className="overflow-hidden">
           {featuredImgSrc
             ? <img src={featuredImgSrc} alt={post.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
