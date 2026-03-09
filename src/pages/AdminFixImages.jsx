@@ -48,8 +48,16 @@ export default function AdminFixImages() {
           onClick={async () => {
             setBulkRunning(true);
             setBulkResult(null);
-            const res = await base44.functions.invoke("fixAllMissingImages", {});
-            setBulkResult(res.data);
+            let totalFixed = 0, totalFailed = 0, totalChecked = 0;
+            while (true) {
+              const res = await base44.functions.invoke("fixAllMissingImages", { limit: 2 });
+              const d = res.data;
+              totalFixed += d.images_fixed || 0;
+              totalFailed += d.images_failed || 0;
+              totalChecked += d.posts_checked || 0;
+              setBulkResult({ images_fixed: totalFixed, images_failed: totalFailed, posts_checked: totalChecked, remaining: d.remaining });
+              if (!d.remaining || d.remaining === 0) break;
+            }
             setBulkRunning(false);
             base44.entities.BlogPost.list("-created_date", 100).then(setPosts);
           }}
@@ -61,8 +69,10 @@ export default function AdminFixImages() {
       </div>
       {bulkResult && (
         <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800">
-          ✓ Fixed {bulkResult.images_fixed} images across {bulkResult.posts_checked} posts
-          {bulkResult.images_failed > 0 && ` (${bulkResult.images_failed} failed)`}
+          {bulkRunning && bulkResult.remaining > 0
+            ? `⏳ Fixed ${bulkResult.images_fixed} images so far... (${bulkResult.remaining} posts remaining)`
+            : `✓ Fixed ${bulkResult.images_fixed} images across ${bulkResult.posts_checked} posts${bulkResult.images_failed > 0 ? ` (${bulkResult.images_failed} failed)` : ''}`
+          }
         </div>
       )}
 
