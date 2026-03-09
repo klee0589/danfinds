@@ -1,4 +1,4 @@
-import { Star, Check, X, ExternalLink } from "lucide-react";
+import { Star, Check, X, ExternalLink, ShoppingBag } from "lucide-react";
 
 function StarRating({ rating }) {
   return (
