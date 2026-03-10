@@ -1,4 +1,4 @@
-name: Build and Deploy DanFinds to GitHub Pages
+name: Build & Deploy DanFinds
 
 on:
   push:
@@ -7,46 +7,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repo and allow pushing back to GitHub
-      - name: Checkout repository
+      # 1️⃣ Checkout your repository
+      - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: true  # allows pushing to gh-pages
 
       # 2️⃣ Setup Node.js
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # 3️⃣ Cache npm modules to speed up builds
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.npm
-            node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      # 4️⃣ Install dependencies
-      - name: Install dependencies
+      # 3️⃣ Install dependencies
+      - name: Install npm dependencies
         run: npm install
 
-      # 5️⃣ Build the project
-      - name: Build project
+      # 4️⃣ Build the project
+      - name: Build Base44/Vite project
         run: npm run build
 
-      # 6️⃣ Deploy the built `dist` folder to GitHub Pages
-      - name: Deploy to GitHub Pages
+      # 5️⃣ Deploy to GitHub Pages
+      - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: dist
-          # optional: keep history for easy rollback
-          keep_files: true
