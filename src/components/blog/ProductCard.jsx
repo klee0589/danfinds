@@ -86,6 +86,7 @@ export default function ProductCard({ product, rank }) {
           href={product.affiliate_url}
           target="_blank"
           rel="noopener noreferrer nofollow"
+          onClick={() => base44.analytics.track({ eventName: "affiliate_link_clicked", properties: { product_name: product.name, price_range: product.price_range, rank: rank || 0 } })}
           className="flex items-center justify-center gap-2 w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors text-sm"
         >
           <ExternalLink className="w-4 h-4" />
