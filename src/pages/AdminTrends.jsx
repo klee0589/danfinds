@@ -152,5 +152,6 @@ export default function AdminTrends() {
         </div>
       )}
     </div>
+    </AdminGuard>
   );
 }

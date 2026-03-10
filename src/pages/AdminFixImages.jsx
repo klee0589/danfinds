@@ -132,5 +132,6 @@ export default function AdminFixImages() {
         </div>
       )}
     </div>
+    </AdminGuard>
   );
 }
