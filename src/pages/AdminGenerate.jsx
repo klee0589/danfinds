@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Zap, ArrowLeft, CheckCircle, AlertCircle, Eye, Send } from "lucide-react";
+import AdminGuard from "@/components/AdminGuard";
 import ReactMarkdown from "react-markdown";
 
 const CATEGORIES = ["Best Products","Amazon Finds","Home Organization","Fitness Gear","Tech Accessories","Garage Sale Tools","Deals Under $50","Product Reviews"];

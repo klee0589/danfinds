@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { TrendingUp, Plus, Trash2, ArrowLeft, CheckCircle, Clock, XCircle } from "lucide-react";
+import AdminGuard from "@/components/AdminGuard";
 
 const CATEGORIES = ["Best Products","Amazon Finds","Home Organization","Fitness Gear","Tech Accessories","Garage Sale Tools","Deals Under $50","Product Reviews"];
 const BUYER_INTENT_TEMPLATES = [

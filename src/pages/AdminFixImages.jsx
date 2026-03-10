@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { ImageIcon, RefreshCw, CheckCircle, AlertCircle } from "lucide-react";
+import AdminGuard from "@/components/AdminGuard";
 import { Button } from "@/components/ui/button";
 
 export default function AdminFixImages() {
