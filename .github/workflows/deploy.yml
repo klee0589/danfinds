@@ -1,9 +1,41 @@
-- name: Deploy to GitHub Pages
-  uses: peaceiris/actions-gh-pages@v4
-  with:
-    publish_dir: ./dist
-    publish_branch: gh-pages
-    cname: danfinds.store
-    user_name: "github-actions[bot]"
-    user_email: "github-actions[bot]@users.noreply.github.com"
-    personal_token: ${{ secrets.GH_PAT }}
+name: Deploy DanFinds
+
+# Trigger the workflow on push to main
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # allows manual runs
+
+# Ensure workflow has permissions
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          cname: danfinds.store
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          personal_token: ${{ secrets.GH_PAT }}
