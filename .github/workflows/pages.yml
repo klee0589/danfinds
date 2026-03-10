@@ -11,22 +11,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Check out the repo and persist credentials so the action can push
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: true  # ✅ essential to fix 403
 
+      # Set up Node
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
+      # Install dependencies
       - name: Install dependencies
         run: npm install
 
+      # Build your Base44/Vite project
       - name: Build project
         run: npm run build
 
+      # Deploy to gh-pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v7
         with:
