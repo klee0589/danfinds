@@ -48,15 +48,8 @@ export default function AdminPipeline() {
     load();
   }, []);
 
-  if (loading) return <div className="flex items-center justify-center h-64 text-gray-500">Loading...</div>;
-  if (user?.role !== 'admin') return (
-    <div className="flex flex-col items-center justify-center h-64 gap-3">
-      <p className="text-gray-600 font-medium">Admin access required.</p>
-      <Link to={createPageUrl("Home")} className="text-amber-600 underline text-sm">Back to site</Link>
-    </div>
-  );
-
   return (
+    <AdminGuard>
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold text-gray-900 flex items-center gap-2">
