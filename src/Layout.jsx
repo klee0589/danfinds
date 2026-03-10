@@ -24,15 +24,15 @@ function useAdSense() {
 }
 
 const NAV_LINKS = [
-  { label: "Home", page: "Home" },
-  { label: "Blog", page: "Blog" },
-  { label: "Categories", page: "Categories" },
-  { label: "About", page: "About" },
-  { label: "Newsletter", page: "Newsletter" },
-  { label: "Contact", page: "Contact" }
-];
+{ label: "Home", page: "Home" },
+{ label: "Blog", page: "Blog" },
+{ label: "Categories", page: "Categories" },
+{ label: "About", page: "About" },
+{ label: "Newsletter", page: "Newsletter" },
+{ label: "Contact", page: "Contact" }];
 
-const ADMIN_PAGES = ["AdminPipeline","AdminTrends","AdminProducts","AdminGenerate","AdminQueue","AdminFixImages"];
+
+const ADMIN_PAGES = ["AdminPipeline", "AdminTrends", "AdminProducts", "AdminGenerate", "AdminQueue", "AdminFixImages"];
 
 export default function Layout({ children, currentPageName }) {
   useAdSense();
@@ -54,36 +54,36 @@ export default function Layout({ children, currentPageName }) {
       {/* Header */}
       <header className="bg-background dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-          {isSubPage && (
-            <button onClick={() => window.history.back()} className="mr-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors md:hidden select-none">
+          {isSubPage &&
+          <button onClick={() => window.history.back()} className="mr-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors md:hidden select-none">
               <ArrowLeft className="w-5 h-5 text-foreground dark:text-gray-300" />
             </button>
-          )}
+          }
           <Link to={createPageUrl("Home")} className="flex items-center gap-2 flex-shrink-0 select-none">
-            <div className="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center">
-              <ShoppingBag className="w-5 h-5 text-white" />
-            </div>
+            
+
+
             <span className="text-xl font-extrabold text-foreground dark:text-white">Dan<span className="text-amber-500">Finds</span></span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
-            {NAV_LINKS.map(link => (
-              <Link
-                key={link.page}
-                to={createPageUrl(link.page)}
-                className={`text-sm font-medium transition-colors hover:text-amber-600 select-none dark:hover:text-amber-400 ${currentPageName === link.page ? "text-amber-600 dark:text-amber-400" : "text-foreground dark:text-gray-300"}`}
-              >
+            {NAV_LINKS.map((link) =>
+            <Link
+              key={link.page}
+              to={createPageUrl(link.page)}
+              className={`text-sm font-medium transition-colors hover:text-amber-600 select-none dark:hover:text-amber-400 ${currentPageName === link.page ? "text-amber-600 dark:text-amber-400" : "text-foreground dark:text-gray-300"}`}>
+
                 {link.label}
               </Link>
-            ))}
+            )}
           </nav>
 
           <div className="flex items-center gap-2">
-            {ADMIN_PAGES.includes(currentPageName) && (
-              <Link to={createPageUrl("AdminPipeline")} className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-gray-900 hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 text-white text-sm font-bold rounded-xl transition-colors select-none">
+            {ADMIN_PAGES.includes(currentPageName) &&
+            <Link to={createPageUrl("AdminPipeline")} className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-gray-900 hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 text-white text-sm font-bold rounded-xl transition-colors select-none">
                 ⚡ Pipeline
               </Link>
-            )}
+            }
             <Link to={createPageUrl("Blog")} className="hidden md:flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl transition-colors select-none">
               <Search className="w-4 h-4" /> Search Deals
             </Link>
@@ -93,20 +93,20 @@ export default function Layout({ children, currentPageName }) {
           </div>
         </div>
 
-        {mobileOpen && (
-          <div className="md:hidden bg-background dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 px-4 pb-4">
-            {NAV_LINKS.map(link => (
-              <Link
-                key={link.page}
-                to={createPageUrl(link.page)}
-                onClick={() => setMobileOpen(false)}
-                className="block py-3 text-sm font-medium text-foreground dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 border-b border-gray-100 dark:border-gray-800 select-none"
-              >
+        {mobileOpen &&
+        <div className="md:hidden bg-background dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 px-4 pb-4">
+            {NAV_LINKS.map((link) =>
+          <Link
+            key={link.page}
+            to={createPageUrl(link.page)}
+            onClick={() => setMobileOpen(false)}
+            className="block py-3 text-sm font-medium text-foreground dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 border-b border-gray-100 dark:border-gray-800 select-none">
+
                 {link.label}
               </Link>
-            ))}
+          )}
           </div>
-        )}
+        }
       </header>
 
       {/* Main Content */}
@@ -117,23 +117,23 @@ export default function Layout({ children, currentPageName }) {
       {/* Bottom Navigation Mobile */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-background dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center justify-around" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         {[
-          { icon: HomeIcon, label: "Home", page: "Home" },
-          { icon: BookOpen, label: "Blog", page: "Blog" },
-          { icon: Grid3x3, label: "Categories", page: "Categories" }
-        ].map(({ icon: Icon, label, page }) => (
-          <Link
-            key={page}
-            to={createPageUrl(page)}
-            className={`flex-1 flex flex-col items-center justify-center py-3 px-2 text-xs font-medium transition-colors select-none ${
-              currentPageName === page
-                ? "text-amber-600 dark:text-amber-400"
-                : "text-foreground dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-300"
-            }`}
-          >
+        { icon: HomeIcon, label: "Home", page: "Home" },
+        { icon: BookOpen, label: "Blog", page: "Blog" },
+        { icon: Grid3x3, label: "Categories", page: "Categories" }].
+        map(({ icon: Icon, label, page }) =>
+        <Link
+          key={page}
+          to={createPageUrl(page)}
+          className={`flex-1 flex flex-col items-center justify-center py-3 px-2 text-xs font-medium transition-colors select-none ${
+          currentPageName === page ?
+          "text-amber-600 dark:text-amber-400" :
+          "text-foreground dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-300"}`
+          }>
+
             <Icon className="w-5 h-5 mb-1" />
             {label}
           </Link>
-        ))}
+        )}
       </nav>
 
       {/* Footer */}
@@ -152,22 +152,22 @@ export default function Layout({ children, currentPageName }) {
           <div>
             <h4 className="font-bold mb-3 text-sm uppercase tracking-wide text-gray-300">Explore</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              {NAV_LINKS.map(link => (
-                <li key={link.page}>
+              {NAV_LINKS.map((link) =>
+              <li key={link.page}>
                   <Link to={createPageUrl(link.page)} className="hover:text-amber-400 transition-colors select-none">{link.label}</Link>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold mb-3 text-sm uppercase tracking-wide text-gray-300">Categories</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              {["Fitness Gear", "Tech Accessories", "Home Organization", "Deals Under $50"].map(cat => (
-                 <li key={cat}>
+              {["Fitness Gear", "Tech Accessories", "Home Organization", "Deals Under $50"].map((cat) =>
+              <li key={cat}>
                    <Link to={createPageUrl(`Categories?cat=${encodeURIComponent(cat)}`)} className="hover:text-amber-400 transition-colors select-none">{cat}</Link>
                  </li>
-               ))}
+              )}
             </ul>
           </div>
 
@@ -185,6 +185,6 @@ export default function Layout({ children, currentPageName }) {
           © {new Date().getFullYear()} DanFinds. As an Amazon Associate, we earn from qualifying purchases.
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 }
