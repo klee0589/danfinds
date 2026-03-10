@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy DanFinds to GitHub Pages
 
 on:
   push:
@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Check out the repo and persist credentials so the action can push
+      # Checkout repo and persist credentials so the bot can push
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: true  # ✅ essential to fix 403
+          persist-credentials: true
 
-      # Set up Node
+      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -27,13 +27,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Build your Base44/Vite project
+      # Build Vite/Base44 project
       - name: Build project
         run: npm run build
 
-      # Deploy to gh-pages
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v7
+        uses: peaceiris/actions-gh-pages@v6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: dist
