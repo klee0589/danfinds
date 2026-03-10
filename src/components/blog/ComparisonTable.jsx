@@ -42,10 +42,11 @@ export default function ComparisonTable({ products }) {
               </td>
               <td className="px-4 py-3">
                 <a
-                  href={product.affiliate_url}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className="inline-flex items-center gap-1 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-lg transition-colors whitespace-nowrap"
+                href={product.affiliate_url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                onClick={() => base44.analytics.track({ eventName: "affiliate_link_clicked", properties: { product_name: product.name, price_range: product.price_range || "", rank: i + 1 } })}
+                className="inline-flex items-center gap-1 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-lg transition-colors whitespace-nowrap"
                 >
                   <ExternalLink className="w-3 h-3" />
                   Check Price
