@@ -39,6 +39,7 @@ export default function AdminFixImages() {
     post.products?.some(p => p.image?.includes("m.media-amazon.com") || !p.image);
 
   return (
+    <AdminGuard>
     <div className="max-w-3xl mx-auto p-6">
       <div className="flex items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">

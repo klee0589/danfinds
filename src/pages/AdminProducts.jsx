@@ -77,6 +77,7 @@ export default function AdminProducts() {
   const statusColors = { draft: "bg-gray-100 text-gray-600", pending_review: "bg-yellow-100 text-yellow-700", approved: "bg-green-100 text-green-700", published: "bg-blue-100 text-blue-700", rejected: "bg-red-100 text-red-600" };
 
   return (
+    <AdminGuard>
     <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="flex items-center gap-3 mb-6">
         <Link to={createPageUrl("AdminPipeline")} className="text-gray-400 hover:text-gray-700"><ArrowLeft className="w-5 h-5" /></Link>

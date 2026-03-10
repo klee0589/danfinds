@@ -33,6 +33,7 @@ export default function AdminQueue() {
   };
 
   return (
+    <AdminGuard>
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="flex items-center gap-3 mb-6">
         <Link to={createPageUrl("AdminPipeline")} className="text-gray-400 hover:text-gray-700"><ArrowLeft className="w-5 h-5" /></Link>
