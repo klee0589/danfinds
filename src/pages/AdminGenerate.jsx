@@ -293,5 +293,6 @@ export default function AdminGenerate() {
         </div>
       </div>
     </div>
+    </AdminGuard>
   );
 }
