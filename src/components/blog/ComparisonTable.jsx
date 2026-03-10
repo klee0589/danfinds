@@ -1,7 +1,16 @@
 import { Star, ExternalLink } from "lucide-react";
+import { useEffect } from "react";
+import { base44 } from "@/api/base44Client";
 
 export default function ComparisonTable({ products }) {
   if (!products || products.length === 0) return null;
+
+  useEffect(() => {
+    base44.analytics.track({
+      eventName: "comparison_table_viewed",
+      properties: { product_count: products.length }
+    });
+  }, []);
 
   return (
     <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm my-8">
