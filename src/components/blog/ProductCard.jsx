@@ -1,4 +1,5 @@
 import { Star, Check, X, ExternalLink, ShoppingBag } from "lucide-react";
+import { base44 } from "@/api/base44Client";
 
 function StarRating({ rating }) {
   return (
