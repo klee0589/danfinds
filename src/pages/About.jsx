@@ -17,12 +17,12 @@ export default function About() {
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row gap-10 mb-12">
           <div className="flex-shrink-0">
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80"
-              alt="Dan"
-              className="w-40 h-40 rounded-2xl object-cover shadow-lg"
-              loading="lazy"
-            />
+            
+
+
+
+
+
           </div>
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-3">Hey, I'm Dan 👋</h2>
@@ -37,35 +37,35 @@ export default function About() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
           {[
-            { stat: "25+", label: "Reviews Published", desc: "Covering fitness, home, tech, and more" },
-            { stat: "10K+", label: "Monthly Readers", desc: "Helping shoppers make better decisions" },
-            { stat: "100%", label: "Independent", desc: "No brand sponsorships or paid placements" }
-          ].map((item, i) => (
-            <div key={i} className="bg-amber-50 border border-amber-100 rounded-xl p-5 text-center">
+          { stat: "25+", label: "Reviews Published", desc: "Covering fitness, home, tech, and more" },
+          { stat: "10K+", label: "Monthly Readers", desc: "Helping shoppers make better decisions" },
+          { stat: "100%", label: "Independent", desc: "No brand sponsorships or paid placements" }].
+          map((item, i) =>
+          <div key={i} className="bg-amber-50 border border-amber-100 rounded-xl p-5 text-center">
               <div className="text-3xl font-extrabold text-amber-600">{item.stat}</div>
               <div className="font-bold text-gray-900 mt-1">{item.label}</div>
               <div className="text-sm text-gray-500 mt-1">{item.desc}</div>
             </div>
-          ))}
+          )}
         </div>
 
         <div className="bg-gray-50 rounded-2xl p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">How I Review Products</h2>
           <div className="space-y-4">
             {[
-              { step: "01", title: "Research", desc: "I start by reading hundreds of real customer reviews, identifying common praise and complaints." },
-              { step: "02", title: "Purchase & Test", desc: "I buy the top contenders and test them in real-world conditions over several days or weeks." },
-              { step: "03", title: "Compare", desc: "I compare products side-by-side across key criteria relevant to how you'll actually use them." },
-              { step: "04", title: "Write Honestly", desc: "I write up the pros, cons, and my honest verdict — including when a product disappointed me." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-4">
+            { step: "01", title: "Research", desc: "I start by reading hundreds of real customer reviews, identifying common praise and complaints." },
+            { step: "02", title: "Purchase & Test", desc: "I buy the top contenders and test them in real-world conditions over several days or weeks." },
+            { step: "03", title: "Compare", desc: "I compare products side-by-side across key criteria relevant to how you'll actually use them." },
+            { step: "04", title: "Write Honestly", desc: "I write up the pros, cons, and my honest verdict — including when a product disappointed me." }].
+            map((item, i) =>
+            <div key={i} className="flex gap-4">
                 <span className="text-2xl font-extrabold text-amber-200 flex-shrink-0 font-mono">{item.step}</span>
                 <div>
                   <h3 className="font-bold text-gray-900">{item.title}</h3>
                   <p className="text-gray-600 text-sm">{item.desc}</p>
                 </div>
               </div>
-            ))}
+            )}
           </div>
         </div>
 
@@ -76,6 +76,6 @@ export default function About() {
 
         <NewsletterBox source="about-page" />
       </div>
-    </div>
-  );
+    </div>);
+
 }
