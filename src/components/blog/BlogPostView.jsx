@@ -30,29 +30,98 @@ export default function BlogPostView({ slug }) {
   });
 
   useEffect(() => {
-    if (post) {
-      document.title = post.meta_title || post.title;
+    if (!post) return;
 
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.name = 'description';
-        document.head.appendChild(metaDesc);
-      }
-      metaDesc.content = post.meta_description || post.excerpt || '';
+    // Title
+    document.title = post.meta_title || post.title;
 
-      // Canonical URL
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.rel = 'canonical';
-        document.head.appendChild(canonical);
+    const setMeta = (selector, attr, value) => {
+      let el = document.querySelector(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        const [attrName, attrVal] = attr.split('=');
+        el.setAttribute(attrName, attrVal);
+        document.head.appendChild(el);
       }
-      canonical.href = `${BASE_URL}/blog/${slug}`;
+      el.setAttribute('content', value);
+      return el;
+    };
+
+    const description = post.meta_description || post.excerpt || '';
+    const image = post.featured_image || post.products?.[0]?.image || '';
+    const url = `${BASE_URL}/blog/${slug}`;
+
+    // Standard meta
+    setMeta('meta[name="description"]', 'name=description', description);
+
+    // Open Graph
+    setMeta('meta[property="og:title"]', 'property=og:title', post.meta_title || post.title);
+    setMeta('meta[property="og:description"]', 'property=og:description', description);
+    setMeta('meta[property="og:url"]', 'property=og:url', url);
+    setMeta('meta[property="og:type"]', 'property=og:type', 'article');
+    setMeta('meta[property="og:site_name"]', 'property=og:site_name', 'DanFinds');
+    if (image) setMeta('meta[property="og:image"]', 'property=og:image', image);
+
+    // Twitter Card
+    setMeta('meta[name="twitter:card"]', 'name=twitter:card', 'summary_large_image');
+    setMeta('meta[name="twitter:title"]', 'name=twitter:title', post.meta_title || post.title);
+    setMeta('meta[name="twitter:description"]', 'name=twitter:description', description);
+    if (image) setMeta('meta[name="twitter:image"]', 'name=twitter:image', image);
+
+    // Canonical
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
     }
+    canonical.href = url;
+
+    // JSON-LD Structured Data
+    const itemListElements = (post.products || []).map((p, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": p.name,
+      "url": p.affiliate_url || url,
+      ...(p.image ? { "image": p.image } : {}),
+      ...(p.rating ? { "aggregateRating": { "@type": "AggregateRating", "ratingValue": p.rating, "bestRating": 5, "worstRating": 1 } } : {})
+    }));
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "headline": post.title,
+          "description": description,
+          "url": url,
+          "datePublished": post.created_date,
+          "dateModified": post.updated_date || post.created_date,
+          "author": { "@type": "Person", "name": post.author || "Dan" },
+          ...(image ? { "image": image } : {}),
+          "publisher": { "@type": "Organization", "name": "DanFinds", "url": BASE_URL }
+        },
+        ...(itemListElements.length > 0 ? [{
+          "@type": "ItemList",
+          "name": post.title,
+          "numberOfItems": itemListElements.length,
+          "itemListElement": itemListElements
+        }] : [])
+      ]
+    };
+
+    let ldScript = document.querySelector('script[data-danfinds-ld]');
+    if (!ldScript) {
+      ldScript = document.createElement('script');
+      ldScript.type = 'application/ld+json';
+      ldScript.setAttribute('data-danfinds-ld', 'true');
+      document.head.appendChild(ldScript);
+    }
+    ldScript.textContent = JSON.stringify(jsonLd);
+
     return () => {
-      const canonical = document.querySelector('link[rel="canonical"]');
-      if (canonical) canonical.remove();
+      document.querySelector('link[rel="canonical"]')?.remove();
+      document.querySelector('script[data-danfinds-ld]')?.remove();
     };
   }, [post, slug]);
 
