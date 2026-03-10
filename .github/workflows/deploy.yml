@@ -1,13 +1,10 @@
 name: Deploy
 
-permissions:
-  contents: write   # <-- grant write access to the repo
-
 on:
   push:
     branches:
       - main
-  workflow_dispatch:  # optional manual trigger
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -31,9 +28,9 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GH_PAT }}
           publish_dir: ./dist
           publish_branch: gh-pages
           cname: danfinds.store
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
+          token: ${{ secrets.GH_PAT }}   # <-- use PAT here instead of GITHUB_TOKEN
