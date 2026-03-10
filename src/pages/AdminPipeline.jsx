@@ -221,5 +221,6 @@ export default function AdminPipeline() {
         </div>
       </div>
     </div>
+    </AdminGuard>
   );
 }
