@@ -122,7 +122,7 @@ export default function AdminGenerate() {
       <h2 className="text-2xl font-extrabold text-gray-900 mb-2">Post Published! 🎉</h2>
       <p className="text-gray-600 mb-6">"{generated?.title}" is now live on DanFinds.</p>
       <div className="flex gap-3 justify-center flex-wrap">
-        <Link to={createPageUrl(`BlogPost?slug=${generated?.slug}`)} className="px-5 py-2.5 bg-amber-500 text-white font-bold rounded-xl text-sm hover:bg-amber-600">View Post →</Link>
+        <Link to={`/blog/${generated?.slug}`} className="px-5 py-2.5 bg-amber-500 text-white font-bold rounded-xl text-sm hover:bg-amber-600">View Post →</Link>
         <Link to={createPageUrl("AdminGenerate")} onClick={() => { setPublished(false); setGenerated(null); setSelectedProductIds([]); setKeyword(""); }} className="px-5 py-2.5 bg-gray-100 text-gray-700 font-bold rounded-xl text-sm hover:bg-gray-200">Generate Another</Link>
         <Link to={createPageUrl("AdminPipeline")} className="px-5 py-2.5 border border-gray-300 text-gray-600 font-bold rounded-xl text-sm hover:bg-gray-50">Dashboard</Link>
       </div>

@@ -18,7 +18,7 @@ Deno.serve(async (req) => {
     const sitemapEntries = posts
       .filter(post => post.slug) // Only include posts with slugs
       .map(post => {
-        const loc = `${baseUrl}/BlogPost?slug=${encodeURIComponent(post.slug)}`;
+        const loc = `${baseUrl}/blog/${post.slug}`;
         const lastmod = post.updated_date ? new Date(post.updated_date).toISOString().split('T')[0] : '';
         return `  <url>
     <loc>${escapeXml(loc)}</loc>

@@ -22,7 +22,7 @@ const CATEGORY_COLORS = {
 };
 
 export default function PostCard({ post, featured = false }) {
-  const url = createPageUrl(`BlogPost?slug=${post.slug}`);
+  const url = `/blog/${post.slug}`;
 
   const featuredImgSrc = post.products?.[0]?.image || null;
 
