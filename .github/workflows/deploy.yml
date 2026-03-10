@@ -1,10 +1,13 @@
 name: Deploy
 
+permissions:
+  contents: write   # <-- grant write access to the repo
+
 on:
   push:
     branches:
       - main
-  workflow_dispatch:   # optional: allows manual trigger
+  workflow_dispatch:  # optional manual trigger
 
 jobs:
   deploy:
@@ -22,13 +25,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build project
         run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}   # <- now has write permission
           publish_dir: ./dist
           publish_branch: gh-pages
           cname: danfinds.store
