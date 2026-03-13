@@ -34,8 +34,17 @@ const NAV_LINKS = [
 
 const ADMIN_PAGES = ["AdminPipeline", "AdminTrends", "AdminProducts", "AdminGenerate", "AdminQueue", "AdminFixImages"];
 
+function usePageTracking(currentPageName) {
+  useEffect(() => {
+    if (currentPageName) {
+      base44.analytics.track({ eventName: "page_view", properties: { page: currentPageName } });
+    }
+  }, [currentPageName]);
+}
+
 export default function Layout({ children, currentPageName }) {
   useAdSense();
+  usePageTracking(currentPageName);
   const [mobileOpen, setMobileOpen] = useState(false);
   const isSubPage = ["BlogPost", "Categories", "About", "Contact"].includes(currentPageName);
 
