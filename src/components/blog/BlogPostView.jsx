@@ -27,7 +27,7 @@ export default function BlogPostView({ slug }) {
   });
 
   const viewMutation = useMutation({
-    mutationFn: () => base44.entities.BlogPost.update(post.id, { views: (post.views || 0) + 1 })
+    mutationFn: () => base44.entities.BlogPost.update(post?.id, { views: (post?.views || 0) + 1 })
   });
 
   useEffect(() => {
