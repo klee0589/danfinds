@@ -157,7 +157,7 @@ export default function BlogPostView({ slug }) {
       {/* Hero Image */}
       <div className="w-full h-64 md:h-96 overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
         {post.products?.[0]?.image
-          ? <img src={post.products[0].image} alt={post.title} className="w-full h-full object-cover" />
+          ? <img src={getOptimizedImageUrl(post.products[0].image, 900)} alt={post.title} className="w-full h-full object-cover" fetchpriority="high" width="900" height="384" />
           : <ShoppingBag className="w-20 h-20 text-gray-300" />
         }
       </div>
