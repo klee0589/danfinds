@@ -2,6 +2,14 @@ import { Clock, Tag, ShoppingBag } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import { Link } from "react-router-dom";
 
+function getOptimizedImageUrl(url, size = 400) {
+  if (!url) return url;
+  if (url.includes('m.media-amazon.com')) {
+    return url.replace(/\._AC_SL\d+_/, `._AC_SL${size}_`);
+  }
+  return url;
+}
+
 function ImgPlaceholder({ className }) {
   return (
     <div className={`bg-gray-100 dark:bg-gray-800 flex items-center justify-center ${className}`}>
