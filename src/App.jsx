@@ -58,6 +58,7 @@ const AuthenticatedApp = () => {
           }
         />
       ))}
+      <Route path="/ads.txt" element={<AdsTxt />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
