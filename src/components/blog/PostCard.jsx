@@ -39,7 +39,7 @@ export default function PostCard({ post, featured = false }) {
       <Link to={url} className="block group select-none">
         <div className="relative rounded-2xl overflow-hidden bg-background dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow">
           {featuredImgSrc
-            ? <img src={featuredImgSrc} alt={post.title} className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            ? <img src={getOptimizedImageUrl(featuredImgSrc, 600)} alt={post.title} className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="320" />
             : <ImgPlaceholder className="w-full h-64 md:h-80" />
           }
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
