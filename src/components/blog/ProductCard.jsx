@@ -1,6 +1,14 @@
 import { Star, Check, X, ExternalLink, ShoppingBag } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
+function getOptimizedImageUrl(url, size = 300) {
+  if (!url) return url;
+  if (url.includes('m.media-amazon.com')) {
+    return url.replace(/\._AC_SL\d+_/, `._AC_SL${size}_`);
+  }
+  return url;
+}
+
 function StarRating({ rating }) {
   return (
     <div className="flex items-center gap-1">
