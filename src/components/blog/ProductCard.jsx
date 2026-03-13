@@ -34,7 +34,7 @@ export default function ProductCard({ product, rank }) {
       <div className="p-6">
         <div className="flex gap-4 mb-4">
           {product.image
-            ? <img src={product.image} alt={product.name} className="w-24 h-24 object-contain rounded-xl flex-shrink-0 bg-gray-50 border border-gray-100 p-1" loading="lazy" />
+            ? <img src={getOptimizedImageUrl(product.image, 200)} alt={product.name} className="w-24 h-24 object-contain rounded-xl flex-shrink-0 bg-gray-50 border border-gray-100 p-1" loading="lazy" width="96" height="96" />
             : <div className="w-24 h-24 rounded-xl flex-shrink-0 bg-gray-100 border border-gray-100 flex items-center justify-center"><ShoppingBag className="w-8 h-8 text-gray-300" /></div>
           }
           <div>
