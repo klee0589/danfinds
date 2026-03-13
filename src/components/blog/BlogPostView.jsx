@@ -17,13 +17,14 @@ const BASE_URL = "https://danfinds.online";
 export default function BlogPostView({ slug }) {
   const queryClient = useQueryClient();
 
-  const { data: posts = [], isLoading } = useQuery({
+  const { data: post, isLoading } = useQuery({
     queryKey: ["blogpost", slug],
-    queryFn: () => base44.entities.BlogPost.list("-created_date", 200),
+    queryFn: async () => {
+      const results = await base44.entities.BlogPost.filter({ slug }, "-created_date", 1);
+      return results[0] || null;
+    },
     enabled: !!slug
   });
-
-  const post = posts.find(p => p.slug === slug);
 
   const viewMutation = useMutation({
     mutationFn: () => base44.entities.BlogPost.update(post.id, { views: (post.views || 0) + 1 })
