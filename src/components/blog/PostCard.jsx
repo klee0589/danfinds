@@ -64,7 +64,7 @@ export default function PostCard({ post, featured = false }) {
       <div className="bg-background dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700 h-full flex flex-col">
         <div className="overflow-hidden">
           {featuredImgSrc
-            ? <img src={featuredImgSrc} alt={post.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            ? <img src={getOptimizedImageUrl(featuredImgSrc, 400)} alt={post.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="400" height="192" />
             : <ImgPlaceholder className="w-full h-48" />
           }
         </div>
