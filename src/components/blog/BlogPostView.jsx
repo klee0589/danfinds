@@ -14,6 +14,16 @@ import Breadcrumb from "@/components/blog/Breadcrumb";
 
 const BASE_URL = "https://danfinds.online";
 
+// Resize Amazon images by swapping the size suffix
+function getOptimizedImageUrl(url, size = 500) {
+  if (!url) return url;
+  // Amazon CDN images: replace size suffix
+  if (url.includes('m.media-amazon.com')) {
+    return url.replace(/\._AC_SL\d+_/, `._AC_SL${size}_`);
+  }
+  return url;
+}
+
 export default function BlogPostView({ slug }) {
   const queryClient = useQueryClient();
 
