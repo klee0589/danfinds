@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
     }
 
     const body = await req.json().catch(() => ({}));
-    const count = Math.min(body.count || 5, 5);
+    const count = Math.min(body.count || 5, 10);
     const associateTag = Deno.env.get('AMAZON_ASSOCIATE_TAG') || 'danfindsapp11-20';
 
     const CATEGORIES = [
