@@ -124,28 +124,14 @@ Return complete blog post JSON.`,
         }
       });
 
-      // Fix any /dp/ links that snuck through, and re-host product images
+      // Fix any /dp/ links that snuck through; clear images (will be fixed by fixNewPostImages)
       if (result.products) {
         for (const product of result.products) {
           if (product.affiliate_url && product.affiliate_url.includes('/dp/')) {
             const q = encodeURIComponent(product.name || topic.keyword);
             product.affiliate_url = `https://www.amazon.com/s?k=${q}&tag=${associateTag}`;
           }
-          // Fetch and re-upload Amazon image to app storage
-          if (product.image) {
-            try {
-              const imgRes = await fetch(product.image);
-              if (imgRes.ok) {
-                const blob = await imgRes.blob();
-                const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
-                product.image = uploaded.file_url || '';
-              } else {
-                product.image = '';
-              }
-            } catch {
-              product.image = '';
-            }
-          }
+          product.image = ''; // Skip image fetching here — too slow for bulk
         }
       }
 
