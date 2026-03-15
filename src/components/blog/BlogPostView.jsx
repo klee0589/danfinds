@@ -11,6 +11,7 @@ import TableOfContents from "@/components/blog/TableOfContents";
 import ComparisonTable from "@/components/blog/ComparisonTable";
 import NewsletterBox from "@/components/blog/NewsletterBox";
 import Breadcrumb from "@/components/blog/Breadcrumb";
+import AdSenseAd from "@/components/blog/AdSenseAd";
 
 const BASE_URL = "https://danfinds.online";
 
