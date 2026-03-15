@@ -273,6 +273,8 @@ export default function BlogPostView({ slug }) {
           </div>
         )}
 
+        <AdSenseAd className="my-8" />
+
         <AuthorBox author={post.author} bio={post.author_bio} avatar={post.author_avatar} />
 
         <div className="mt-10">
