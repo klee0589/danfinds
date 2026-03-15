@@ -250,6 +250,8 @@ export default function BlogPostView({ slug }) {
           </div>
         )}
 
+        <AdSenseAd className="my-8" />
+
         {post.buying_guide && (
           <div id="buying-guide" className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900 rounded-2xl p-6 mb-10">
             <h2 className="text-xl font-bold text-foreground dark:text-white mb-3">🛒 Buying Guide</h2>
