@@ -230,6 +230,8 @@ export default function BlogPostView({ slug }) {
           </div>
         )}
 
+        <AdSenseAd className="my-8" />
+
         {post.products?.length > 1 && (
           <div className="mb-10">
             <h2 className="text-2xl font-bold text-foreground dark:text-white mb-4">Quick Comparison</h2>
