@@ -44,26 +44,30 @@ Deno.serve(async (req) => {
           const imgRes = await fetch(img, {
             headers: { 'User-Agent': 'Mozilla/5.0 (compatible; DanFindsBot/1.0)' }
           });
-          console.log(`Fetch ${img.slice(0, 60)}: status=${imgRes.status}, type=${imgRes.headers.get('content-type')}`);
-          if (imgRes.ok) {
+          const contentType = imgRes.headers.get('content-type') || '';
+          const isImage = imgRes.ok && contentType.startsWith('image/');
+          if (isImage) {
             const blob = await imgRes.blob();
-            console.log(`Blob size: ${blob.size}, type: ${blob.type}`);
-            const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
-            console.log(`Upload result:`, JSON.stringify(uploaded));
-            if (uploaded?.file_url) {
-              products[i] = { ...products[i], image: uploaded.file_url };
+            if (blob.size > 1000) { // must be a real image
+              const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+              if (uploaded?.file_url) {
+                products[i] = { ...products[i], image: uploaded.file_url };
+                changed = true;
+                fixed++;
+              } else { failed++; }
+            } else {
+              // Tiny blob = blocked, use picsum
+              const seed = encodeURIComponent(products[i].name || `product${i}`).slice(0, 20);
+              products[i] = { ...products[i], image: `https://picsum.photos/seed/${seed}/400/300` };
               changed = true;
-              fixed++;
-            } else { failed++; }
+            }
           } else {
-            console.log(`Amazon blocked (${imgRes.status}), using picsum fallback`);
-            // Amazon blocked — use picsum fallback
+            // Amazon blocked or non-image response — use picsum fallback
             const seed = encodeURIComponent(products[i].name || `product${i}`).slice(0, 20);
             products[i] = { ...products[i], image: `https://picsum.photos/seed/${seed}/400/300` };
             changed = true;
           }
         } catch(e) {
-          console.log(`Error for ${img}: ${e.message}`);
           failed++;
         }
       }
