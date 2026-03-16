@@ -1,6 +1,6 @@
 /**
- * Fixes all BlogPosts that have products with missing images.
- * Asks LLM for a real Amazon image URL per product, then re-hosts it.
+ * Fixes all BlogPosts that have products with Amazon CDN images (which get hotlink-blocked).
+ * Re-hosts all m.media-amazon.com images via Base44 file storage.
  * Admin only.
  */
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.20';
@@ -14,11 +14,14 @@ Deno.serve(async (req) => {
     }
 
     const body = await req.json().catch(() => ({}));
-    const limit = body.limit || 2; // process max 2 posts per call to avoid timeout
+    const limit = body.limit || 3;
 
     const posts = await base44.asServiceRole.entities.BlogPost.list('-created_date', 200);
+
+    // Find posts that still have raw Amazon CDN URLs (not yet re-hosted)
     const postsNeedingFix = posts.filter(p =>
-      p.products?.some(prod => !prod.image)
+      p.products?.some(prod => prod.image && prod.image.includes('m.media-amazon.com'))
+      || (p.featured_image && p.featured_image.includes('m.media-amazon.com'))
     );
 
     const batch = postsNeedingFix.slice(0, limit);
@@ -31,47 +34,54 @@ Deno.serve(async (req) => {
       const products = [...(post.products || [])];
       let changed = false;
 
+      // Fix product images
       for (let i = 0; i < products.length; i++) {
-        if (products[i].image) continue;
+        const img = products[i].image;
+        if (!img || !img.includes('m.media-amazon.com')) continue;
 
-        // Ask LLM for a real Amazon image URL
         try {
-          const llmResult = await base44.asServiceRole.integrations.Core.InvokeLLM({
-            prompt: `Find a real Amazon product image URL for: "${products[i].name}".
-Return ONLY a valid image URL from m.media-amazon.com in this exact format:
-https://m.media-amazon.com/images/I/IMAGEID._AC_SL500_.jpg`,
-            add_context_from_internet: true,
-            model: 'gemini_3_flash',
-            response_json_schema: {
-              type: "object",
-              properties: { image_url: { type: "string" } }
-            }
+          const imgRes = await fetch(img, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; DanFindsBot/1.0)' }
           });
-
-          const imageUrl = llmResult.image_url;
-           if (imageUrl) {
-             try {
-               const imgRes = await fetch(imageUrl);
-               if (imgRes.ok) {
-                 const blob = await imgRes.blob();
-                 const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
-                 if (uploaded?.file_url) {
-                   products[i] = { ...products[i], image: uploaded.file_url };
-                   changed = true;
-                   fixed++;
-                 }
-               }
-             } catch (e) {
-               failed++;
-             }
-           }
+          if (imgRes.ok) {
+            const blob = await imgRes.blob();
+            const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+            if (uploaded?.file_url) {
+              products[i] = { ...products[i], image: uploaded.file_url };
+              changed = true;
+              fixed++;
+            } else { failed++; }
+          } else {
+            // Amazon blocked — use picsum fallback
+            const seed = encodeURIComponent(products[i].name || `product${i}`).slice(0, 20);
+            products[i] = { ...products[i], image: `https://picsum.photos/seed/${seed}/400/300` };
+            changed = true;
+          }
         } catch {
           failed++;
         }
       }
 
+      // Fix featured_image too
+      let featuredImage = post.featured_image;
+      if (featuredImage && featuredImage.includes('m.media-amazon.com')) {
+        try {
+          const imgRes = await fetch(featuredImage, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; DanFindsBot/1.0)' }
+          });
+          if (imgRes.ok) {
+            const blob = await imgRes.blob();
+            const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+            if (uploaded?.file_url) {
+              featuredImage = uploaded.file_url;
+              changed = true;
+            }
+          }
+        } catch { /* keep original */ }
+      }
+
       if (changed) {
-        await base44.asServiceRole.entities.BlogPost.update(post.id, { products });
+        await base44.asServiceRole.entities.BlogPost.update(post.id, { products, featured_image: featuredImage });
       }
     }
 
