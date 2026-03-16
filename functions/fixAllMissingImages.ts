@@ -24,6 +24,7 @@ Deno.serve(async (req) => {
       || (p.featured_image && p.featured_image.includes('m.media-amazon.com'))
     );
 
+    console.log(`Total posts: ${posts.length}, needing fix: ${postsNeedingFix.length}`);
     const batch = postsNeedingFix.slice(0, limit);
     const remaining = Math.max(0, postsNeedingFix.length - limit);
 
