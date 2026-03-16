@@ -43,21 +43,26 @@ Deno.serve(async (req) => {
           const imgRes = await fetch(img, {
             headers: { 'User-Agent': 'Mozilla/5.0 (compatible; DanFindsBot/1.0)' }
           });
+          console.log(`Fetch ${img.slice(0, 60)}: status=${imgRes.status}, type=${imgRes.headers.get('content-type')}`);
           if (imgRes.ok) {
             const blob = await imgRes.blob();
+            console.log(`Blob size: ${blob.size}, type: ${blob.type}`);
             const uploaded = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+            console.log(`Upload result:`, JSON.stringify(uploaded));
             if (uploaded?.file_url) {
               products[i] = { ...products[i], image: uploaded.file_url };
               changed = true;
               fixed++;
             } else { failed++; }
           } else {
+            console.log(`Amazon blocked (${imgRes.status}), using picsum fallback`);
             // Amazon blocked — use picsum fallback
             const seed = encodeURIComponent(products[i].name || `product${i}`).slice(0, 20);
             products[i] = { ...products[i], image: `https://picsum.photos/seed/${seed}/400/300` };
             changed = true;
           }
-        } catch {
+        } catch(e) {
+          console.log(`Error for ${img}: ${e.message}`);
           failed++;
         }
       }
