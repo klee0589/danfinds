@@ -26,11 +26,18 @@ function StarRating({ rating }) {
 export default function ProductCard({ product, rank }) {
   return (
     <div className="bg-white border-2 border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-      {rank && (
-        <div className="bg-amber-500 text-white text-xs font-bold px-3 py-1 text-center">
-          #{rank} TOP PICK
-        </div>
-      )}
+      <div className="flex">
+        {product.segment && (
+          <div className="bg-amber-500 text-white text-xs font-bold px-3 py-1.5 flex-1 text-center tracking-wide uppercase">
+            {product.segment}
+          </div>
+        )}
+        {!product.segment && rank && (
+          <div className="bg-amber-500 text-white text-xs font-bold px-3 py-1.5 flex-1 text-center">
+            #{rank} TOP PICK
+          </div>
+        )}
+      </div>
       <div className="p-6">
         <div className="flex gap-4 mb-4">
           {product.image
