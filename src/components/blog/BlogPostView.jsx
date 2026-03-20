@@ -12,6 +12,7 @@ import ComparisonTable from "@/components/blog/ComparisonTable";
 import NewsletterBox from "@/components/blog/NewsletterBox";
 import Breadcrumb from "@/components/blog/Breadcrumb";
 import AdSenseAd from "@/components/blog/AdSenseAd";
+import RelatedPosts from "@/components/blog/RelatedPosts";
 
 const BASE_URL = "https://danfinds.online";
 
@@ -126,15 +127,17 @@ export default function BlogPostView({ slug }) {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "Article",
+          "@type": "BlogPosting",
           "headline": post.title,
           "description": description,
           "url": url,
           "datePublished": post.created_date,
           "dateModified": post.updated_date || post.created_date,
           "author": { "@type": "Person", "name": post.author || "Dan" },
-          ...(image ? { "image": image } : {}),
-          "publisher": { "@type": "Organization", "name": "DanFinds", "url": BASE_URL }
+          ...(image ? { "image": { "@type": "ImageObject", "url": image } } : {}),
+          "publisher": { "@type": "Organization", "name": "DanFinds", "url": BASE_URL, "logo": { "@type": "ImageObject", "url": `${BASE_URL}/favicon.ico` } },
+          "mainEntityOfPage": { "@type": "WebPage", "@id": url },
+          ...(post.tags?.length ? { "keywords": post.tags.join(", ") } : {})
         },
         ...(itemListElements.length > 0 ? [{
           "@type": "ItemList",
