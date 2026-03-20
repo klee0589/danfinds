@@ -34,13 +34,16 @@ Then write the full blog post about that topic.`
 Available categories: ${CATEGORIES.join(', ')}
 Amazon Associate Tag: ${associateTag}
 
-Find 4-5 REAL, highly-rated Amazon products. For each product:
+Find 7-9 REAL, highly-rated Amazon products. Assign each a "segment" label that makes sense for the topic — e.g. "Best Budget", "Best Premium", "Best Lightweight", "Best for Beginners", "Best Heavy-Duty", "Best Compact", "Best Smart/Tech", "Best Eco-Friendly", "Best Overall", "Editor's Pick", etc. Use varied, relevant segments — not just price-based. No two products should share the same segment.
+
+For each product:
 - Use a real product name
+- segment: a short label like "Best Budget", "Best Overall", "Best Lightweight", etc.
 - image: use https://picsum.photos/seed/PRODUCTNAME/400/300 (replace PRODUCTNAME with product name slug, no spaces)
 - affiliate_url: https://www.amazon.com/s?k=PRODUCT+NAME+HERE&tag=${associateTag} (spaces as +)
 - Real-ish price range, rating 4.0–4.9
 
-Write 1000–1400 words. Conversational, helpful, honest tone.
+Write 1200–1600 words. Conversational, helpful, honest tone.
 
 Return complete blog post JSON.`,
       model: 'gemini_3_flash',
