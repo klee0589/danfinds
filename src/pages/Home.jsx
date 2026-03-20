@@ -18,11 +18,32 @@ const CATEGORIES = [
 export default function Home() {
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ["blogposts-home"],
-    queryFn: () => base44.entities.BlogPost.list("-created_date", 9)
+    queryFn: () => base44.entities.BlogPost.list("-created_date", 13)
   });
 
   const featured = posts.find(p => p.is_featured) || posts[0];
-  const recent = posts.filter(p => p.id !== featured?.id).slice(0, 8);
+  const recent = posts.filter(p => p.id !== featured?.id).slice(0, 6);
+
+  // WebSite JSON-LD
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.setAttribute("data-website-ld", "true");
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "DanFinds",
+      "url": "https://danfinds.online",
+      "description": "Honest Amazon product reviews and curated deals to help you buy smarter.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://danfinds.online/Blog?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    });
+    document.head.appendChild(script);
+    return () => document.querySelector("script[data-website-ld]")?.remove();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">

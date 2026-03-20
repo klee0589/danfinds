@@ -302,6 +302,8 @@ export default function BlogPostView({ slug }) {
 
         <AdSenseAd className="my-8" />
 
+        <RelatedPosts currentSlug={post.slug} category={post.category} tags={post.tags} />
+
         <AuthorBox author={post.author} bio={post.author_bio} avatar={post.author_avatar} />
 
         <div className="mt-10">
