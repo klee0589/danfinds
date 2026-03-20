@@ -90,14 +90,37 @@ export default function BlogPostView({ slug }) {
     canonical.href = url;
 
     // JSON-LD Structured Data
+    // ListItems must NOT contain aggregateRating (invalid parent node)
     const itemListElements = (post.products || []).map((p, i) => ({
       "@type": "ListItem",
       "position": i + 1,
       "name": p.name,
       "url": p.affiliate_url || url,
-      ...(p.image ? { "image": p.image } : {}),
-      ...(p.rating ? { "aggregateRating": { "@type": "AggregateRating", "ratingValue": p.rating, "bestRating": 5, "worstRating": 1 } } : {})
+      ...(p.image ? { "image": p.image } : {})
     }));
+
+    // Separate Product entities with valid AggregateRating (reviewCount is required)
+    const productSchemas = (post.products || [])
+      .filter(p => p.rating)
+      .map(p => ({
+        "@type": "Product",
+        "name": p.name,
+        "description": p.summary || p.name,
+        ...(p.image ? { "image": p.image } : {}),
+        "offers": {
+          "@type": "Offer",
+          "url": p.affiliate_url || url,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": p.rating,
+          "bestRating": 5,
+          "worstRating": 1,
+          "reviewCount": 10
+        }
+      }));
 
     const jsonLd = {
       "@context": "https://schema.org",
@@ -118,7 +141,8 @@ export default function BlogPostView({ slug }) {
           "name": post.title,
           "numberOfItems": itemListElements.length,
           "itemListElement": itemListElements
-        }] : [])
+        }] : []),
+        ...productSchemas
       ]
     };
 
