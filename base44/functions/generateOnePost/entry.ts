@@ -77,6 +77,7 @@ Return complete blog post JSON.`,
               type: "object",
               properties: {
                 name: { type: "string" },
+                segment: { type: "string" },
                 image: { type: "string" },
                 summary: { type: "string" },
                 price_range: { type: "string" },
