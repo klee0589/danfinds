@@ -7,6 +7,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import AdsTxt from './pages/AdsTxt';
+import AdminCluster from './pages/AdminCluster';
 import RobotsTxt from './pages/RobotsTxt';
 import SitemapXml from './pages/SitemapXml';
 
@@ -61,6 +62,7 @@ const AuthenticatedApp = () => {
         />
       ))}
       <Route path="/ads.txt" element={<AdsTxt />} />
+      <Route path="/AdminCluster" element={<LayoutWrapper currentPageName="AdminCluster"><AdminCluster /></LayoutWrapper>} />
       <Route path="/robots.txt" element={<RobotsTxt />} />
       <Route path="/sitemap.xml" element={<SitemapXml />} />
       <Route path="*" element={<PageNotFound />} />
