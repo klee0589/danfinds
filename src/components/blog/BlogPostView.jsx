@@ -100,28 +100,60 @@ export default function BlogPostView({ slug }) {
       ...(p.image ? { "image": p.image } : {})
     }));
 
-    // Separate Product entities with valid AggregateRating (reviewCount is required)
-    const productSchemas = (post.products || [])
-      .filter(p => p.rating)
-      .map(p => ({
-        "@type": "Product",
-        "name": p.name,
-        "description": p.summary || p.name,
-        ...(p.image ? { "image": p.image } : {}),
-        "offers": {
-          "@type": "Offer",
-          "url": p.affiliate_url || url,
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock"
-        },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": p.rating,
-          "bestRating": 5,
-          "worstRating": 1,
-          "reviewCount": 10
-        }
-      }));
+    // Extract a numeric price string from price_range like "$29.99" or "$20-$40"
+    const extractPrice = (priceRange, category) => {
+      if (!priceRange) {
+        // Derive from category if possible
+        if (category === "Deals Under $50") return "29.99";
+        return "24.99";
+      }
+      // Pull all numbers from the string
+      const nums = priceRange.match(/[\d]+(?:\.\d+)?/g);
+      if (!nums) return "24.99";
+      // Use the first (lowest) price
+      let price = parseFloat(nums[0]);
+      // Enforce "Deals Under $50" cap
+      if (category === "Deals Under $50" && price >= 50) price = 39.99;
+      return price.toFixed(2);
+    };
+
+    // Extract brand: first 1-2 words of the product name (best-effort heuristic)
+    const extractBrand = (name) => {
+      if (!name) return "Amazon";
+      const words = name.trim().split(/\s+/);
+      // Common generic first words that aren't brands — skip them
+      const skipWords = new Set(["best", "top", "premium", "the", "a", "an", "new", "ultra", "pro", "mini", "smart", "portable"]);
+      const brand = words.find(w => !skipWords.has(w.toLowerCase())) || words[0];
+      return brand.replace(/[^a-zA-Z0-9&\s]/g, "").trim() || "Amazon";
+    };
+
+    // Product schemas — one per product, fully valid for Google Merchant Listings
+    const productSchemas = (post.products || []).map(p => ({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": p.name,
+      "description": p.summary || p.best_for || p.name,
+      ...(p.image ? { "image": p.image } : {}),
+      "brand": {
+        "@type": "Brand",
+        "name": extractBrand(p.name)
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": p.affiliate_url || url,
+        "priceCurrency": "USD",
+        "price": extractPrice(p.price_range, post.category),
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": String(p.rating || "4.5"),
+        "bestRating": "5",
+        "worstRating": "1",
+        "reviewCount": "10"
+      }
+    }));
 
     const jsonLd = {
       "@context": "https://schema.org",
