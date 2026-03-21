@@ -151,6 +151,23 @@ export default function AdminPipeline() {
         ))}
       </div>
 
+      {/* Content Cluster */}
+      <div className="mt-8 bg-purple-50 border-2 border-purple-300 rounded-2xl p-6">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h3 className="font-bold text-lg text-gray-900 flex items-center gap-2">
+              <Layers className="w-5 h-5 text-purple-500" /> Content Cluster Generator
+            </h3>
+            <p className="text-gray-600 text-sm mt-1">
+              One keyword → 7 fully interlinked articles: 1 product list, 1 buying guide, 5 individual product reviews. Maximises topical authority & internal linking.
+            </p>
+          </div>
+          <Link to={createPageUrl("AdminCluster")} className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl transition-colors flex items-center gap-2 flex-shrink-0">
+            <Layers className="w-4 h-4" /> Build a Cluster →
+          </Link>
+        </div>
+      </div>
+
       {/* Bulk Generate */}
       <div className="mt-8 bg-amber-50 border-2 border-amber-300 rounded-2xl p-6">
         <div className="flex items-center justify-between flex-wrap gap-4">
