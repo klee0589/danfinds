@@ -267,7 +267,7 @@ Requirements:
 - "Who Should Buy" section: describe the ideal buyer persona
 - Link back to the full list article: "See all our top picks for ${keyword} in our [complete ${keyword} guide](/blog/${listSlug})."
 - Affiliate URL already provided above — use it for the "Check price on Amazon" CTA
-- Image: ${product.image || `https://picsum.photos/seed/${makeSlug(product.name)}/400/300`}
+- Image: ${product.image || `https://m.media-amazon.com/images/I/placeholder._AC_SL500_.jpg`}
 
 Return JSON.`,
         response_json_schema: {
