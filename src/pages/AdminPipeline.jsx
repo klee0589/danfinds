@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { LayoutDashboard, Zap, TrendingUp, Package, ClipboardList, Settings, RefreshCw } from "lucide-react";
+import { LayoutDashboard, Zap, TrendingUp, Package, ClipboardList, Settings, RefreshCw, Layers } from "lucide-react";
 import AdminGuard from "@/components/AdminGuard";
 
 const TABS = [
@@ -11,6 +11,7 @@ const TABS = [
   { id: "products", label: "Products", icon: Package, page: "AdminProducts" },
   { id: "queue", label: "Publish Queue", icon: ClipboardList, page: "AdminQueue" },
   { id: "generate", label: "Generate Post", icon: Zap, page: "AdminGenerate" },
+  { id: "cluster", label: "Content Cluster", icon: Layers, page: "AdminCluster" },
 ];
 
 export default function AdminPipeline() {
