@@ -67,7 +67,7 @@ Requirements:
 - 1000–1400 words total
 - Mention that full reviews are available for each product (you will link them — use placeholder "[REVIEW_LINK_n]" where n is 1-based product index)
 - Affiliate URLs format: https://www.amazon.com/s?k=PRODUCT+NAME&tag=${associateTag}
-- Product images: use https://picsum.photos/seed/PRODUCTSLUG/400/300 where PRODUCTSLUG is the product name lowercased with spaces replaced by hyphens (e.g. "anker-magsafe-charger"). This ensures each product gets a consistent, unique image.
+- Product images: You MUST provide a real Amazon product image URL. For each product, you know the ASIN or can infer it. Use this exact format: https://m.media-amazon.com/images/I/[ImageID]._AC_SL500_.jpg — look up real ASINs for real products. For example, Anker 737 Power Bank ASIN is B09VPHVT2Z so image is https://m.media-amazon.com/images/I/61yJFzD2LoL._AC_SL500_.jpg. You must provide realistic, working Amazon CDN image URLs for each product based on your knowledge of the actual product's ASIN and image ID.
 
 Return JSON.`,
       response_json_schema: {
