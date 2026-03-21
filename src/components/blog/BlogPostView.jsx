@@ -155,6 +155,7 @@ export default function BlogPostView({ slug }) {
       }
     }));
 
+    // Main BlogPosting + ItemList graph
     const jsonLd = {
       "@context": "https://schema.org",
       "@graph": [
@@ -176,11 +177,11 @@ export default function BlogPostView({ slug }) {
           "name": post.title,
           "numberOfItems": itemListElements.length,
           "itemListElement": itemListElements
-        }] : []),
-        ...productSchemas
+        }] : [])
       ]
     };
 
+    // Inject main LD script
     let ldScript = document.querySelector('script[data-danfinds-ld]');
     if (!ldScript) {
       ldScript = document.createElement('script');
@@ -190,9 +191,21 @@ export default function BlogPostView({ slug }) {
     }
     ldScript.textContent = JSON.stringify(jsonLd);
 
+    // Inject one <script> per Product — Google requires separate scripts for Merchant Listings
+    // Remove old product scripts first
+    document.querySelectorAll('script[data-danfinds-product]').forEach(s => s.remove());
+    productSchemas.forEach((schema, i) => {
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.setAttribute('data-danfinds-product', String(i));
+      s.textContent = JSON.stringify(schema);
+      document.head.appendChild(s);
+    });
+
     return () => {
       document.querySelector('link[rel="canonical"]')?.remove();
       document.querySelector('script[data-danfinds-ld]')?.remove();
+      document.querySelectorAll('script[data-danfinds-product]').forEach(s => s.remove());
     };
   }, [post, slug]);
 
