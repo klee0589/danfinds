@@ -67,7 +67,7 @@ Requirements:
 - 1000–1400 words total
 - Mention that full reviews are available for each product (you will link them — use placeholder "[REVIEW_LINK_n]" where n is 1-based product index)
 - Affiliate URLs format: https://www.amazon.com/s?k=PRODUCT+NAME&tag=${associateTag}
-- Product images: https://picsum.photos/seed/SLUG/400/300 (use product name as slug, no spaces)
+- Product images: use real Amazon product image URLs in this format: https://m.media-amazon.com/images/I/[realistic-looking-image-id]._AC_SL500_.jpg — OR use https://images-na.ssl-images-amazon.com/images/I/[id]._AC_SL500_.jpg. Pick realistic Amazon image IDs based on the product. If unsure, use the affiliate_url search to infer a likely ASIN and construct: https://m.media-amazon.com/images/I/[ASIN-based-id]._AC_SL500_.jpg. As a fallback ONLY if no real image can be inferred, use: https://via.placeholder.com/400x300?text=PRODUCT+NAME
 
 Return JSON.`,
       response_json_schema: {
