@@ -152,6 +152,23 @@ export default function AdminPipeline() {
         ))}
       </div>
 
+      {/* Keyword Discovery */}
+      <div className="mt-8 bg-blue-50 border-2 border-blue-300 rounded-2xl p-6">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h3 className="font-bold text-lg text-gray-900 flex items-center gap-2">
+              <Search className="w-5 h-5 text-blue-500" /> Keyword Discovery
+            </h3>
+            <p className="text-gray-600 text-sm mt-1">
+              AI finds low-competition long-tail keywords (KD &lt;25, 200–5,000 monthly searches) in your niches. Approve the best ones, queue them, and the daily automation generates 7-article clusters automatically.
+            </p>
+          </div>
+          <Link to={createPageUrl("AdminKeywords")} className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors flex items-center gap-2 flex-shrink-0">
+            <Search className="w-4 h-4" /> Discover Keywords →
+          </Link>
+        </div>
+      </div>
+
       {/* Content Cluster */}
       <div className="mt-8 bg-purple-50 border-2 border-purple-300 rounded-2xl p-6">
         <div className="flex items-center justify-between flex-wrap gap-4">
