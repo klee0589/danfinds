@@ -90,11 +90,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust Badges */
+      {/* Trust Badges */}
       <section className="bg-amber-50 border-y border-amber-100 py-5 px-4">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 text-sm text-amber-800 font-medium">
           <span className="flex items-center gap-1.5"><Star className="w-4 h-4 text-amber-500" /> Only 4+ star picks</span>
-          <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-amber-500" /> Independent & honest</span>
+          <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-amber-500" /> Independent &amp; honest</span>
           <span className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-amber-500" /> Daily new posts</span>
         </div>
       </section>
