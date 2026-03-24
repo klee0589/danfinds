@@ -19,6 +19,14 @@ function escapeXml(str) {
 }
 
 export default function SitemapXml() {
+  // Noindex this utility page
+  useEffect(() => {
+    let meta = document.querySelector('meta[name="robots"]');
+    if (!meta) { meta = document.createElement('meta'); meta.name = 'robots'; document.head.appendChild(meta); }
+    meta.content = 'noindex, nofollow';
+    return () => { if (meta) meta.content = 'index, follow'; };
+  }, []);
+
   const [xml, setXml] = useState("");
 
   useEffect(() => {
