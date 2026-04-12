@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import AdsTxt from './pages/AdsTxt';
 import AdminCluster from './pages/AdminCluster';
+import AdminSEO from './pages/AdminSEO';
 import AdminKeywords from './pages/AdminKeywords';
 import RobotsTxt from './pages/RobotsTxt';
 import SitemapXml from './pages/SitemapXml';
@@ -64,6 +65,7 @@ const AuthenticatedApp = () => {
       ))}
       <Route path="/ads.txt" element={<AdsTxt />} />
       <Route path="/AdminCluster" element={<LayoutWrapper currentPageName="AdminCluster"><AdminCluster /></LayoutWrapper>} />
+      <Route path="/AdminSEO" element={<LayoutWrapper currentPageName="AdminSEO"><AdminSEO /></LayoutWrapper>} />
       <Route path="/AdminKeywords" element={<LayoutWrapper currentPageName="AdminKeywords"><AdminKeywords /></LayoutWrapper>} />
       <Route path="/robots.txt" element={<RobotsTxt />} />
       <Route path="/sitemap.xml" element={<SitemapXml />} />

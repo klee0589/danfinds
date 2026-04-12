@@ -27,9 +27,9 @@ export default function Home() {
 
   // SEO: page title + meta
   useEffect(() => {
-    document.title = "DanFinds — Honest Amazon Reviews & Curated Deals";
+    document.title = "DanFinds - Best Amazon Product Reviews & Deals 2026";
     let desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute('content', 'Honest Amazon product reviews and hand-picked deals across fitness gear, tech, home organization, and more. Only 4+ star products worth your money.');
+    if (desc) desc.setAttribute('content', 'Honest, hands-on Amazon product reviews across fitness gear, tech accessories, home organization & more. Only 4+ star picks. Updated weekly for 2026.');
   }, []);
 
   // JSON-LD: WebSite + Organization
@@ -69,14 +69,14 @@ export default function Home() {
       <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-amber-500/20 text-amber-400 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
-            <TrendingUp className="w-4 h-4" /> Updated daily — March 2026
+            <TrendingUp className="w-4 h-4" /> Updated daily - April 2026
           </div>
           <h1 className="text-5xl font-extrabold mb-4 leading-tight">
-            Honest Amazon Reviews &amp;<br />
-            <span className="text-amber-400">Deals Worth Buying</span>
+            Best Amazon Product Reviews &amp;<br />
+            <span className="text-amber-400">Deals Worth Buying in 2026</span>
           </h1>
           <p className="text-gray-300 text-lg mb-4 max-w-xl mx-auto">
-            Hand-picked product reviews across fitness gear, tech accessories, home organization, and more. No paid placements — only items that actually earned it.
+            Hand-picked product reviews across fitness gear, tech accessories, home organization, and more. No paid placements - only items that actually earned it.
           </p>
           <p className="text-gray-400 text-sm mb-8 max-w-md mx-auto">Trusted by 10,000+ smart shoppers. Only 4+ star products make the cut.</p>
           <div className="flex flex-wrap gap-3 justify-center">
@@ -102,7 +102,7 @@ export default function Home() {
       {/* Featured Post */}
       {featured && !isLoading && (
         <section className="max-w-6xl mx-auto px-4 py-12">
-          <h2 className="text-2xl font-extrabold text-gray-900 mb-6">⭐ Featured Post</h2>
+          <h2 className="text-2xl font-extrabold text-gray-900 mb-6">Featured Post</h2>
           <PostCard post={featured} featured={true} />
         </section>
       )}
@@ -158,7 +158,7 @@ export default function Home() {
             {[
               { icon: Search, step: "1", title: "Research", desc: "We scan thousands of Amazon products and filter by real customer ratings, review depth, and value." },
               { icon: CheckCircle, step: "2", title: "Curate", desc: "Only products with 4+ stars and meaningful reviews make it to our list. No paid placements, ever." },
-              { icon: Package, step: "3", title: "Publish", desc: "We write honest pros/cons breakdowns so you can decide quickly — then link straight to Amazon." },
+              { icon: Package, step: "3", title: "Publish", desc: "We write honest pros/cons breakdowns so you can decide quickly, then link straight to Amazon." },
             ].map(item => (
               <div key={item.step} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center">
                 <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-3">

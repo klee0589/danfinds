@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { LayoutDashboard, Zap, TrendingUp, Package, ClipboardList, Settings, RefreshCw, Layers, Search } from "lucide-react";
+import { LayoutDashboard, Zap, TrendingUp, Package, ClipboardList, Settings, RefreshCw, Layers, Search, BarChart } from "lucide-react";
 import AdminGuard from "@/components/AdminGuard";
 
 const TABS = [
@@ -13,6 +13,7 @@ const TABS = [
   { id: "generate", label: "Generate Post", icon: Zap, page: "AdminGenerate" },
   { id: "cluster",   label: "Content Cluster",  icon: Layers,    page: "AdminCluster"  },
   { id: "keywords",  label: "Keyword Discovery", icon: Search,    page: "AdminKeywords" },
+  { id: "seo",       label: "SEO Meta Fixer",    icon: BarChart,  page: "AdminSEO" },
 ];
 
 export default function AdminPipeline() {

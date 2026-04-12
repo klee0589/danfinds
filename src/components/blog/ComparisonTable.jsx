@@ -3,14 +3,15 @@ import { useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 
 export default function ComparisonTable({ products }) {
-  if (!products || products.length === 0) return null;
-
   useEffect(() => {
+    if (!products || products.length === 0) return;
     base44.analytics.track({
       eventName: "comparison_table_viewed",
       properties: { product_count: products.length }
     });
-  }, []);
+  }, [products]);
+
+  if (!products || products.length === 0) return null;
 
   return (
     <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm my-8">

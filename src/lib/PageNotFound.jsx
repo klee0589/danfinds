@@ -7,11 +7,7 @@ export default function PageNotFound() {
     const location = useLocation();
     const pageName = location.pathname.substring(1);
 
-    // Handle /blog/:slug SEO-friendly URLs
     const blogMatch = location.pathname.match(/^\/blog\/(.+)$/);
-    if (blogMatch) {
-        return <BlogPostView slug={blogMatch[1]} />;
-    }
 
     const { data: authData, isFetched } = useQuery({
         queryKey: ['user'],
@@ -24,6 +20,11 @@ export default function PageNotFound() {
             }
         }
     });
+
+    // Handle /blog/:slug SEO-friendly URLs
+    if (blogMatch) {
+        return <BlogPostView slug={blogMatch[1]} />;
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50">
