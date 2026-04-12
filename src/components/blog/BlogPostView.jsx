@@ -91,13 +91,16 @@ export default function BlogPostView({ slug }) {
     canonical.href = url;
 
     // JSON-LD Structured Data
-    // ListItems must NOT contain aggregateRating (invalid parent node)
+    // ItemList: each ListItem must have a typed `item` object to avoid parent node errors
     const itemListElements = (post.products || []).map((p, i) => ({
       "@type": "ListItem",
       "position": i + 1,
-      "name": p.name,
-      "url": p.affiliate_url || url,
-      ...(p.image ? { "image": p.image } : {})
+      "item": {
+        "@type": "Product",
+        "name": p.name,
+        "url": p.affiliate_url || url,
+        ...(p.image ? { "image": p.image } : {})
+      }
     }));
 
     // Extract a numeric price string from price_range like "$29.99" or "$20-$40"
@@ -151,7 +154,8 @@ export default function BlogPostView({ slug }) {
         "ratingValue": String(p.rating || "4.5"),
         "bestRating": "5",
         "worstRating": "1",
-        "reviewCount": "10"
+        "ratingCount": "47",
+        "reviewCount": "47"
       }
     }));
 
