@@ -47,21 +47,21 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import About from './pages/About.jsx';
+import About from './pages/About';
 import AdminFixImages from './pages/AdminFixImages';
 import AdminGenerate from './pages/AdminGenerate';
 import AdminPipeline from './pages/AdminPipeline';
 import AdminProducts from './pages/AdminProducts';
 import AdminQueue from './pages/AdminQueue';
 import AdminTrends from './pages/AdminTrends';
-import AffiliateDisclosure from './pages/AffiliateDisclosure.jsx';
+import AffiliateDisclosure from './pages/AffiliateDisclosure';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Categories from './pages/Categories';
 import Contact from './pages/Contact';
 import Home from './pages/Home';
 import Newsletter from './pages/Newsletter';
-import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import __Layout from './Layout.jsx';
 
 
