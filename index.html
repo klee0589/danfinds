@@ -9,13 +9,27 @@
     <title>DanFinds — Best Amazon Product Reviews &amp; Deals 2026</title>
     <meta name="description" content="Honest, hands-on Amazon product reviews across fitness gear, tech accessories, home organization &amp; more. Only 4+ star picks. Updated weekly for 2026." />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://danfinds.online/" />
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DanFinds" />
     <meta property="og:title" content="DanFinds — Honest Amazon Reviews &amp; Curated Deals" />
     <meta property="og:description" content="Honest Amazon product reviews and hand-picked deals. No fluff, no filler — just the best products worth your money." />
-    <meta property="og:url" content="https://danfinds.online/" />
+    <script>
+      (function() {
+        var url = 'https://danfinds.online' + window.location.pathname;
+        var canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        canonical.href = url;
+        document.head.appendChild(canonical);
+        var ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) { ogUrl.setAttribute('content', url); } else {
+          var m = document.createElement('meta');
+          m.setAttribute('property', 'og:url');
+          m.setAttribute('content', url);
+          document.head.appendChild(m);
+        }
+      })();
+    </script>
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="DanFinds — Honest Amazon Reviews &amp; Curated Deals" />

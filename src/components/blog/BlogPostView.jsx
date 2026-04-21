@@ -207,7 +207,6 @@ export default function BlogPostView({ slug }) {
     });
 
     return () => {
-      document.querySelector('link[rel="canonical"]')?.remove();
       document.querySelector('script[data-danfinds-ld]')?.remove();
       document.querySelectorAll('script[data-danfinds-product]').forEach(s => s.remove());
     };
