@@ -1,9 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Clock, Tag, ArrowLeft, ShoppingBag } from "lucide-react";
 import { useEffect } from "react";
+import { BLOG_REDIRECTS } from "@/lib/blogRedirects";
 import ProductCard from "@/components/blog/ProductCard";
 import AuthorBox from "@/components/blog/AuthorBox";
 import FAQSection from "@/components/blog/FAQSection";
@@ -28,6 +29,7 @@ function getOptimizedImageUrl(url, size = 500) {
 
 export default function BlogPostView({ slug }) {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: post, isLoading } = useQuery({
     queryKey: ["blogpost", slug],
@@ -226,7 +228,13 @@ export default function BlogPostView({ slug }) {
     );
   }
 
-  if (!post) {
+  if (!post && !isLoading) {
+    // Check redirect map for moved/deleted duplicates
+    const redirectTarget = BLOG_REDIRECTS[slug];
+    if (redirectTarget) {
+      navigate(`/blog/${redirectTarget}`, { replace: true });
+      return null;
+    }
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 text-center">
         <h1 className="text-2xl font-bold text-foreground dark:text-white mb-3">Post not found</h1>
