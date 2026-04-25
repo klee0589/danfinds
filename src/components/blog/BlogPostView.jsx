@@ -257,6 +257,14 @@ export default function BlogPostView({ slug }) {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="mb-4">
+          <button
+            onClick={() => window.history.length > 1 ? window.history.back() : navigate(createPageUrl("Blog"))}
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" /> Back to Blog
+          </button>
+        </div>
         <Breadcrumb items={[
           { label: "Blog", href: createPageUrl("Blog") },
           { label: post.category, href: createPageUrl(`Categories?cat=${encodeURIComponent(post.category)}`) },
