@@ -57,14 +57,15 @@ Generate a JSON object with this exact structure:
       "pros": ["pro1", "pro2", "pro3"],
       "cons": ["con1", "con2"],
       "key_features": ["feature1", "feature2", "feature3"],
-      "affiliate_url": "https://www.amazon.com/s?k=PRODUCT+NAME+SEARCH&tag=danfindsapp11-20"
+      "affiliate_url": "https://www.amazon.com/s?k=EXACT+FULL+PRODUCT+NAME&tag=danfindsapp11-20&linkCode=ur2"
     }
   ]
 }
 
 IMPORTANT: 
-- ALWAYS use search URL format for affiliate_url: https://www.amazon.com/s?k=PRODUCT+NAME&tag=danfindsapp11-20
-- Replace spaces with + in the search query. Never use /dp/ASIN links as ASINs may be invalid.
+- For affiliate_url, use this exact format: https://www.amazon.com/s?k=EXACT+FULL+PRODUCT+NAME&tag=danfindsapp11-20&linkCode=ur2
+- Use the FULL product name (including brand) in the search query. Replace spaces with +.
+- The more specific the product name, the better the search results.
 - Write naturally and helpfully, not salesy
 - Include real product specs if known
 - The buying guide should have at least 4 key factors`;

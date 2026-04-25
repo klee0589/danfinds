@@ -40,7 +40,7 @@ For each product:
 - Use a real product name
 - segment: a short label like "Best Budget", "Best Overall", "Best Lightweight", etc.
 - image: use https://picsum.photos/seed/PRODUCTNAME/400/300 (replace PRODUCTNAME with product name slug, no spaces)
-- affiliate_url: https://www.amazon.com/s?k=PRODUCT+NAME+HERE&tag=${associateTag} (spaces as +)
+- affiliate_url: https://www.amazon.com/s?k=EXACT+FULL+PRODUCT+NAME&tag=${associateTag}&linkCode=ur2 (use full product name with brand, spaces as +)
 - Real-ish price range, rating 4.0–4.9
 
 Write 1200–1600 words. Conversational, helpful, honest tone.
@@ -94,12 +94,12 @@ Return complete blog post JSON.`,
       }
     });
 
-    // Fix affiliate URLs
+    // Fix/normalize affiliate URLs
     if (result.products) {
       for (const p of result.products) {
-        if (p.affiliate_url && p.affiliate_url.includes('/dp/')) {
+        if (!p.affiliate_url || !p.affiliate_url.includes('linkCode=ur2')) {
           const q = encodeURIComponent(p.name || result.title || 'product');
-          p.affiliate_url = `https://www.amazon.com/s?k=${q}&tag=${associateTag}`;
+          p.affiliate_url = `https://www.amazon.com/s?k=${q}&tag=${associateTag}&linkCode=ur2`;
         }
       }
     }
