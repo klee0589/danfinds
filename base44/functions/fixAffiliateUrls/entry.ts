@@ -2,18 +2,38 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 
 const ASSOCIATE_TAG = Deno.env.get('AMAZON_ASSOCIATE_TAG') || 'danfindsapp11-20';
 
+// Validate that a URL looks like a real Amazon product/search URL
+function isValidAmazonUrl(url) {
+  if (!url) return false;
+  if (!url.includes('amazon.com')) return false;
+  // Must be a search or product page
+  if (!url.includes('/s?') && !url.includes('/dp/') && !url.includes('/gp/')) return false;
+  // If it's a search URL, the k= param must not be empty or garbage
+  if (url.includes('/s?')) {
+    try {
+      const u = new URL(url);
+      const k = u.searchParams.get('k') || '';
+      // Reject if k is too short, empty, or looks like garbage
+      if (k.length < 5) return false;
+    } catch { return false; }
+  }
+  return true;
+}
+
 // Convert any affiliate URL to a reliable Amazon search URL
 function buildReliableAffiliateUrl(affiliateUrl, productName) {
-  // Already a direct /dp/ link — keep as-is
+  // Already a direct /dp/ link — keep as-is, just ensure tag
   if (affiliateUrl && affiliateUrl.includes('/dp/')) {
-    // Ensure tag is present
-    const url = new URL(affiliateUrl);
-    url.searchParams.set('tag', ASSOCIATE_TAG);
-    return url.toString();
+    try {
+      const url = new URL(affiliateUrl);
+      url.searchParams.set('tag', ASSOCIATE_TAG);
+      return url.toString();
+    } catch { /* fall through */ }
   }
 
-  // Build a clean search URL from product name
-  const searchTerm = encodeURIComponent(productName.trim());
+  // Always rebuild from product name for reliability
+  const searchTerm = encodeURIComponent((productName || '').trim());
+  if (!searchTerm || searchTerm.length < 3) return null; // Can't fix without a name
   return `https://www.amazon.com/s?k=${searchTerm}&tag=${ASSOCIATE_TAG}&linkCode=ur2`;
 }
 
@@ -22,7 +42,17 @@ Deno.serve(async (req) => {
   const body = await req.json().catch(() => ({}));
   const dryRun = body.dryRun !== false; // default to dry run for safety
 
-  const posts = await base44.asServiceRole.entities.BlogPost.list('-created_date', 200);
+  // Fetch ALL posts in pages
+  let posts = [];
+  let page = 0;
+  const pageSize = 100;
+  while (true) {
+    const batch = await base44.asServiceRole.entities.BlogPost.list('-created_date', pageSize, page * pageSize);
+    if (!batch || batch.length === 0) break;
+    posts = posts.concat(batch);
+    if (batch.length < pageSize) break;
+    page++;
+  }
   
   let fixed = 0;
   let skipped = 0;
@@ -37,15 +67,15 @@ Deno.serve(async (req) => {
     const updatedProducts = products.map(p => {
       const url = p.affiliate_url || '';
       
-      // Only fix search-style URLs that aren't /dp/ links and don't already have linkCode
-      if (url.includes('/dp/') || url.includes('linkCode=ur2')) {
+      // Skip valid URLs (has linkCode=ur2 AND passes validation, or is a valid /dp/ link)
+      if (isValidAmazonUrl(url) && (url.includes('linkCode=ur2') || url.includes('/dp/'))) {
         skipped++;
         return p;
       }
 
       const newUrl = buildReliableAffiliateUrl(url, p.name);
       
-      if (newUrl !== url) {
+      if (newUrl && newUrl !== url) {
         changed = true;
         fixed++;
         if (changes.length < 10) {
