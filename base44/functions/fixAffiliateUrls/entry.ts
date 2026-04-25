@@ -21,19 +21,10 @@ function isValidAmazonUrl(url) {
 }
 
 // Convert any affiliate URL to a reliable Amazon search URL
+// NOTE: /dp/ ASINs are AI-hallucinated and cause 404s — always use search URLs
 function buildReliableAffiliateUrl(affiliateUrl, productName) {
-  // Already a direct /dp/ link — keep as-is, just ensure tag
-  if (affiliateUrl && affiliateUrl.includes('/dp/')) {
-    try {
-      const url = new URL(affiliateUrl);
-      url.searchParams.set('tag', ASSOCIATE_TAG);
-      return url.toString();
-    } catch { /* fall through */ }
-  }
-
-  // Always rebuild from product name for reliability
   const searchTerm = encodeURIComponent((productName || '').trim());
-  if (!searchTerm || searchTerm.length < 3) return null; // Can't fix without a name
+  if (!searchTerm || searchTerm.length < 3) return null;
   return `https://www.amazon.com/s?k=${searchTerm}&tag=${ASSOCIATE_TAG}&linkCode=ur2`;
 }
 
@@ -67,8 +58,8 @@ Deno.serve(async (req) => {
     const updatedProducts = products.map(p => {
       const url = p.affiliate_url || '';
       
-      // Skip valid URLs (has linkCode=ur2 AND passes validation, or is a valid /dp/ link)
-      if (isValidAmazonUrl(url) && (url.includes('linkCode=ur2') || url.includes('/dp/'))) {
+      // Skip only if it's already a proper search URL (linkCode=ur2) — never skip /dp/ links
+      if (isValidAmazonUrl(url) && url.includes('linkCode=ur2') && !url.includes('/dp/')) {
         skipped++;
         return p;
       }

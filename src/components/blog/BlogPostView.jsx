@@ -335,7 +335,9 @@ export default function BlogPostView({ slug }) {
             <h2 className="text-2xl font-bold text-foreground dark:text-white mb-6">Top Picks</h2>
             <div className="space-y-8">
               {post.products.map((product, i) => (
-                <ProductCard key={i} product={product} rank={i + 1} />
+                <div key={i} id={`product-${i}`} style={{ scrollMarginTop: '80px' }}>
+                  <ProductCard product={product} rank={i + 1} />
+                </div>
               ))}
             </div>
           </div>
