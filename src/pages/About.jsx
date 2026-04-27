@@ -52,7 +52,7 @@ export default function About() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-14">
           {[
-            { stat: "150+", label: "Posts Published", desc: "Across fitness, home, tech, and everyday carry" },
+            { stat: "500+", label: "Posts Published", desc: "Across fitness, home, tech, and everyday carry" },
             { stat: "10K+", label: "Monthly Readers", desc: "Shoppers who trust our recommendations" },
             { stat: "100%", label: "Independent", desc: "No brand sponsorships or paid placements — ever" }
           ].map((item, i) => (

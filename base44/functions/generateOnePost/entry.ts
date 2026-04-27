@@ -37,13 +37,23 @@ Amazon Associate Tag: ${associateTag}
 Find 7-9 REAL, highly-rated Amazon products. Assign each a "segment" label that makes sense for the topic — e.g. "Best Budget", "Best Premium", "Best Lightweight", "Best for Beginners", "Best Heavy-Duty", "Best Compact", "Best Smart/Tech", "Best Eco-Friendly", "Best Overall", "Editor's Pick", etc. Use varied, relevant segments — not just price-based. No two products should share the same segment.
 
 For each product:
-- Use a real product name
+- Use a real, specific product name (brand + model number where applicable)
 - segment: a short label like "Best Budget", "Best Overall", "Best Lightweight", etc.
-- image: use https://picsum.photos/seed/PRODUCTNAME/400/300 (replace PRODUCTNAME with product name slug, no spaces)
+- image: leave empty string "" — images are sourced separately
 - affiliate_url: https://www.amazon.com/s?k=EXACT+FULL+PRODUCT+NAME&tag=${associateTag}&linkCode=ur2 (use full product name with brand, spaces as +)
 - Real-ish price range, rating 4.0–4.9
+- summary: at least 3 sentences explaining what makes this product worth buying, who it's ideal for, and any important caveats
+- pros: at least 4 specific, detailed pros (not generic phrases)
+- cons: at least 2 honest cons
+- key_features: at least 4 specific technical or practical features
+- best_for: one sentence describing the ideal buyer
 
-Write 1200–1600 words. Conversational, helpful, honest tone.
+Introduction: Write at least 4 paragraphs. Explain the problem this category solves, what separates good from bad products, what criteria to use when shopping, and a brief preview of the top picks.
+Buying guide: Write at least 5 paragraphs covering the key factors to consider when buying in this category — materials, specs, price tiers, common mistakes buyers make, and what features actually matter vs. marketing fluff.
+Conclusion: Write 2–3 paragraphs summarizing the top pick and who each product is best for.
+FAQs: Write at least 5 detailed questions and thorough answers (3+ sentences each).
+
+Write 2000–2500 words total. Conversational, expert, helpful, honest tone. Avoid generic marketing phrases.
 
 Return complete blog post JSON.`,
       model: 'gemini_3_flash',
@@ -94,12 +104,28 @@ Return complete blog post JSON.`,
       }
     });
 
-    // Fix/normalize affiliate URLs
+    // Fix/normalize affiliate URLs and remove placeholder images
+    const categoryImageKeywords = {
+      "Fitness Gear": "fitness+equipment+gym",
+      "Tech Accessories": "tech+gadgets+electronics",
+      "Home Organization": "home+storage+organization",
+      "Deals Under $50": "amazon+products",
+      "Amazon Finds": "amazon+products",
+      "Best Products": "amazon+products",
+      "Product Reviews": "product+review",
+      "Garage Sale Tools": "tools+hardware"
+    };
+
     if (result.products) {
       for (const p of result.products) {
+        // Fix affiliate URL
         if (!p.affiliate_url || !p.affiliate_url.includes('linkCode=ur2')) {
           const q = encodeURIComponent(p.name || result.title || 'product');
           p.affiliate_url = `https://www.amazon.com/s?k=${q}&tag=${associateTag}&linkCode=ur2`;
+        }
+        // Remove fake picsum placeholder images — leave blank so the UI uses its fallback icon
+        if (!p.image || p.image.includes('picsum.photos') || p.image.includes('placeholder')) {
+          p.image = '';
         }
       }
     }
@@ -132,7 +158,7 @@ Return complete blog post JSON.`,
       products: result.products || [],
       faqs: result.faqs || [],
       author: 'Dan',
-      author_bio: 'Dan is an Amazon deal hunter and product researcher who has reviewed thousands of products since 2018.',
+      author_bio: 'Dan has been researching and reviewing Amazon products since 2018. He started DanFinds after too many disappointing purchases and now spends hours each week testing, reading hundreds of verified reviews, and separating marketing hype from genuine quality. His goal is simple: help you spend your money on things that actually work.',
       author_avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80',
       is_featured: false,
       views: 0

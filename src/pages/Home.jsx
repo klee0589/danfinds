@@ -149,6 +149,37 @@ export default function Home() {
         )}
       </section>
 
+      {/* Why Trust Us */}
+      <section className="bg-white py-14 px-4 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-extrabold text-gray-900 text-center mb-2">Why Readers Trust DanFinds</h2>
+          <p className="text-gray-500 text-center text-sm mb-10 max-w-xl mx-auto">Amazon has over 350 million products. We do the hard work so you don't waste money on the wrong one.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+            {[
+              { icon: ShieldCheck, title: "No Paid Placements — Ever", desc: "We've never accepted a brand sponsorship or a free product in exchange for a positive review. Every recommendation is chosen on merit alone. If something didn't earn its spot, it doesn't appear here." },
+              { icon: Search, title: "Hundreds of Reviews Analyzed", desc: "Before writing a single word, we read through hundreds of verified customer reviews — the ones with photos, update notes, and real complaints — to find what actually matters and what marketing language glosses over." },
+              { icon: CheckCircle, title: "Only 4+ Star Products Make the Cut", desc: "We don't publish a product with under a 4.0-star rating or fewer than 100 verified reviews. Widespread customer satisfaction is a prerequisite, not a bonus." },
+              { icon: TrendingUp, title: "Updated When Products Change", desc: "Amazon listings change. Products get discontinued, ratings drop, better alternatives emerge. We revisit and update posts when the landscape shifts, so our recommendations stay accurate." },
+            ].map((item, i) => (
+              <div key={i} className="flex gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100">
+                <div className="flex-shrink-0 w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+                  <item.icon className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-1">{item.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link to={createPageUrl("About")} className="inline-flex items-center gap-1.5 text-amber-600 hover:text-amber-700 font-semibold text-sm">
+              Learn more about our editorial process <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section className="bg-gray-50 py-12 px-4">
         <div className="max-w-4xl mx-auto">
@@ -156,9 +187,9 @@ export default function Home() {
           <p className="text-gray-500 text-center text-sm mb-8">No sponsored content. No guesswork. Just honest picks.</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
-              { icon: Search, step: "1", title: "Research", desc: "We scan thousands of Amazon products and filter by real customer ratings, review depth, and value." },
-              { icon: CheckCircle, step: "2", title: "Curate", desc: "Only products with 4+ stars and meaningful reviews make it to our list. No paid placements, ever." },
-              { icon: Package, step: "3", title: "Publish", desc: "We write honest pros/cons breakdowns so you can decide quickly, then link straight to Amazon." },
+              { icon: Search, step: "1", title: "Deep Research", desc: "We scan thousands of Amazon products, filter by real customer ratings and review depth, and identify the most common complaints and praises before writing a word." },
+              { icon: CheckCircle, step: "2", title: "Honest Curation", desc: "Only products with 4+ stars and meaningful reviews make it to our list. We document real pros and cons — including the ones brands don't want you to know." },
+              { icon: Package, step: "3", title: "Clear Writing", desc: "We write plain-English breakdowns tailored to specific use cases so you can find the right fit quickly — then link straight to Amazon with our affiliate tag." },
             ].map(item => (
               <div key={item.step} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center">
                 <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-3">
