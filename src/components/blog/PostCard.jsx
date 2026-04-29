@@ -39,7 +39,7 @@ export default function PostCard({ post, featured = false }) {
       <Link to={url} className="block group select-none">
         <div className="relative rounded-2xl overflow-hidden bg-background dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow">
           {featuredImgSrc
-            ? <img src={getOptimizedImageUrl(featuredImgSrc, 600)} alt={post.title} className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="320" />
+            ? <img src={getOptimizedImageUrl(featuredImgSrc, 600)} alt={post.title} className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="320" referrerPolicy="no-referrer" />
             : <ImgPlaceholder className="w-full h-64 md:h-80" />
           }
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -64,7 +64,7 @@ export default function PostCard({ post, featured = false }) {
       <div className="bg-background dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700 h-full flex flex-col">
         <div className="overflow-hidden">
           {featuredImgSrc
-            ? <img src={getOptimizedImageUrl(featuredImgSrc, 400)} alt={post.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="400" height="192" />
+            ? <img src={getOptimizedImageUrl(featuredImgSrc, 400)} alt={post.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="400" height="192" referrerPolicy="no-referrer" />
             : <ImgPlaceholder className="w-full h-48" />
           }
         </div>
